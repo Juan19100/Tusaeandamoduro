@@ -26,6 +26,7 @@ STATUS object_destroy(Object* object){
 
     free(object);
     object = NULL;
+    
     return OK;
 }
 

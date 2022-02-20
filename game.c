@@ -42,9 +42,10 @@ STATUS game_create(Game *game)
     game->spaces[i] = NULL;
   }
 
-  game->player = NULL;
-  game->object = NULL;
+  game->player= player_create(NO_ID);
+  game->object = object_create(NO_ID);
   game->last_cmd = NO_CMD;
+
   return OK;
 }
 
@@ -121,18 +122,25 @@ STATUS game_set_player_location(Game *game, Id id)
   return player_set_location(game->player, id);
 }
 
-STATUS game_set_object_location(Game *game, Id id)
+STATUS game_set_object_location(Game *game, Id id)/*ESTO CREO QUE NO TIRA*/
 {
+  Id object_id = object_get_id(game->object);
+  Space *location = NULL;
+
   if (id == NO_ID)
   {
     return ERROR;
   }
 
-  return space_set_object(game_get_space(game, id),id);
+  location = game_get_space(game, id);
+  space_set_object(location, object_id);
+  return OK;
 }
 
 Id game_get_player_location(Game *game)
 {
+  if(!game) return NO_ID;
+
   return player_get_location(game->player);
 }
 

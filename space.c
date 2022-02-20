@@ -56,9 +56,7 @@ Space* space_create(Id id) {
   *  for a space
   */
 STATUS space_destroy(Space* space) {
-  if (!space) {
-    return ERROR;
-  }
+  if (!space) return ERROR;
 
   free(space);
   space = NULL;

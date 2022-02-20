@@ -78,7 +78,7 @@ Id player_get_object_id(Player *player){
 }
 
 STATUS player_set_object_id(Player *player, Id id){
-    if(!player || id==NO_ID) return ERROR;
+    if(!player || id == NO_ID) return ERROR;
 
     player->object_id = id;
 
