@@ -10,5 +10,10 @@ Id player_get_id(Player* player);
 STATUS player_set_name(Player* player, char* name);
 const char* player_get_name(Player* player);
 STATUS player_print(Player* player);
+Id player_get_location(Player* player);
+STATUS player_set_location(Player *player, Id location);
+Id player_get_object_id(Player *player);
+STATUS player_set_object_id(Player *player, Id id);
+
 
 #endif

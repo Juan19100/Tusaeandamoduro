@@ -23,7 +23,9 @@ Player* player_create(Id id){
     newPlayer->name[0] = '\0';
     newPlayer->id = id;
     newPlayer->object_id = NO_ID;
-    newPlayer->location =NO_ID;
+    newPlayer->location = NO_ID;
+
+    return newPlayer;
 }
 
 STATUS player_destroy(Player* player){
@@ -53,4 +55,32 @@ const char* player_get_name(Player* player){
     if(!player) return NULL;
 
     return player->name;
+}
+
+Id player_get_location(Player* player){
+    if(!player) return NO_ID;
+    
+    return player->location; 
+}
+
+STATUS player_set_location(Player *player, Id location){
+    if(!player || location == NO_ID) return ERROR;
+
+    player->location = location;
+    
+    return OK;
+}
+
+Id player_get_object_id(Player *player){
+    if(!player) return NO_ID;
+
+    return player->object_id;
+}
+
+STATUS player_set_object_id(Player *player, Id id){
+    if(!player || id==NO_ID) return ERROR;
+
+    player->object_id = id;
+
+    return OK;
 }

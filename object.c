@@ -25,33 +25,29 @@ STATUS object_destroy(Object* object){
     if (!object) return ERROR;
 
     free(object);
-    object=NULL;
+    object = NULL;
     return OK;
 }
 
 Id object_get_id(Object* object){
-     if (!object) {
-    return NO_ID;
-  }
-  return object->id;
+    if (!object) return NO_ID;
+    
+    return object->id;
 }
 
 
 STATUS object_set_name(Object* object, char* name){
     if(!object || !name) return ERROR;
 
-    if(!strcpy(object->name,name)) {
-        return ERROR;
-    }
+    if(!strcpy(object->name,name)) return ERROR;
 
     return OK;
 }
 
 const char* object_get_name(Object* object){
-     if (!object) {
-    return NULL;
-  }
-  return object->name;
+    if (!object) return NULL;
+
+    return object->name;
 }
 
 STATUS object_print(Object* object){

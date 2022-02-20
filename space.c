@@ -35,13 +35,10 @@ Space* space_create(Id id) {
   Space *newSpace = NULL;
 
   /* Error control */
-  if (id == NO_ID)
-    return NULL;
+  if (id == NO_ID) return NULL;
 
   newSpace = (Space *) malloc(sizeof (Space));
-  if (newSpace == NULL) {
-    return NULL;
-  }
+  if (newSpace == NULL) return NULL;
 
   /* Initialization of an empty space*/
   newSpace->id = id;
@@ -50,7 +47,7 @@ Space* space_create(Id id) {
   newSpace->south = NO_ID;
   newSpace->east = NO_ID;
   newSpace->west = NO_ID;
-  newSpace->object = FALSE;
+  newSpace->object = NO_ID;
 
   return newSpace;
 }
