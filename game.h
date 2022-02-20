@@ -24,7 +24,27 @@ typedef struct _Game
   T_Command last_cmd;
 } Game;
 
+
+/**
+  * @brief It creates a new game
+  * @author 
+  *
+  * game_create allocates memory for a new game
+  *  and initializes its members
+  * @param game pointer to the new game
+  * @return OK, if everything goes well or ERROR if there was some mistake
+  */
 STATUS game_create(Game *game);
+
+/**
+  * @brief It creates a new space
+  * @author
+  *
+  * space_create allocates memory for a new space
+  *  and initializes its members
+  * @param id the identification number for the new space
+  * @return a new space, initialized
+  */
 STATUS game_create_from_file(Game *game, char *filename);
 STATUS game_update(Game *game, T_Command cmd);
 STATUS game_destroy(Game *game);
