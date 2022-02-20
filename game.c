@@ -122,7 +122,7 @@ STATUS game_set_player_location(Game *game, Id id)
   return player_set_location(game->player, id);
 }
 
-STATUS game_set_object_location(Game *game, Id id)/*ESTO CREO QUE NO TIRA*/
+STATUS game_set_object_location(Game *game, Id id)
 {
   Id object_id = object_get_id(game->object);
   Space *location = NULL;
@@ -134,6 +134,7 @@ STATUS game_set_object_location(Game *game, Id id)/*ESTO CREO QUE NO TIRA*/
 
   location = game_get_space(game, id);
   space_set_object(location, object_id);
+
   return OK;
 }
 
@@ -155,6 +156,7 @@ Id game_get_object_location(Game *game)
       return space_get_id(game->spaces[i]);
     }
   }
+  
   return NO_ID;
 }
 
