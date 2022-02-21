@@ -28,6 +28,8 @@ void game_command_unknown(Game *game);
 void game_command_exit(Game *game);
 void game_command_next(Game *game);
 void game_command_back(Game *game);
+void game_command_take(Game *game);
+void game_command_drop(Game *game);
 
 /**
    Game interface implementation
@@ -182,6 +184,12 @@ STATUS game_update(Game *game, T_Command cmd)
       game_command_back(game);
       break;
 
+    case TAKE:
+      game_command_take(game);
+
+    case DROP:
+      game_command_drop(game);
+
     default:
       break;
   }
@@ -280,4 +288,39 @@ void game_command_back(Game *game)
       return;
     }
   }
+}
+
+void game_command_take(Game *game)
+{
+  Id object_location;
+  Space *space_player;
+
+  if(!game) return;
+
+  object_location = game_get_object_location(game);
+  if(object_location == NO_ID) return;
+
+  if(object_location != player_get_location(game->player)) return;/*deben estar en la misma casilla*/
+
+  if(player_set_object_id(game->player, object_location) == ERROR) return;
+
+  space_player = game_get_space(game, player_get_id(game->player));
+
+  if(space_set_object(space_player, NO_ID) == ERROR) return;
+  
+}
+
+void game_command_drop(Game *game)
+{
+  Id object_id, space_id;
+
+  if(!game) return;
+
+  object_id = player_get_object_id(game->player);
+  if(object_id == NO_ID) return;
+  space_id = player_get_location(game->player);
+
+  if(space_set_object(game_get_space(game, space_id), object_id) == ERROR) return;
+
+  if(player_set_object_id(game->player, NO_ID) == ERROR) return;
 }
