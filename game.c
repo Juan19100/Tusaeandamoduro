@@ -296,17 +296,16 @@ void game_command_take(Game *game)
   Space *space_player;
 
   if(!game) return;
-
+  
   object_location = game_get_object_location(game);
   if(object_location == NO_ID) return;
-
+  
   if(object_location != player_get_location(game->player)) return;/*deben estar en la misma casilla*/
-
-  if(player_set_object_id(game->player, object_location) == ERROR) return;
-
-  space_player = game_get_space(game, player_get_id(game->player));
+  game_set_object_location(game, NO_ID);
+  space_player =game_get_space(game, game_get_player_location(game));
 
   if(space_set_object(space_player, NO_ID) == ERROR) return;
+
   
 }
 
