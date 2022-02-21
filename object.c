@@ -1,12 +1,28 @@
+/**
+ * @brief It defines the game loop
+ *
+ * @file game_loop.c
+ * @author Juan
+ * @version 2.0
+ * @date 17-02-2022
+ * @copyright GNU Public License
+ */
+
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
 
 #include "object.h"
 
+/**
+ * @brief Object
+ *
+ * Almacena la información del objeto.
+ */
 struct _Object{
-    Id id;
-    char name[WORD_SIZE+1];
+    Id id; /*!<Variable Id, identificador del objeto*/
+    char name[WORD_SIZE+1]; /*!<cadena de caracteres con el nombre del objeto*/
 };
 
 Object* object_create(Id id){

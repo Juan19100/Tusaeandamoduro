@@ -1,3 +1,14 @@
+/** 
+ * @brief .c que sirve para todo lo relacionado con 
+ * el jugador
+ * 
+ * @file player.c
+ * @author Ignacio
+ * @version 2.0 
+ * @date 17-2-2022 
+ * @copyright GNU Public License
+ */
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -6,11 +17,17 @@
 #include "object.h"
 #include "player.h"
 
+
+/**
+ * @brief Player
+ *
+ * Almacena la información de player.
+ */
 struct _Player{
-    Id id;
-    Id location;
-    char name[WORD_SIZE + 1];
-    Id object_id;
+    Id id;  /*!<Variable Id, identificador del player*/
+    Id location;/*!<Variable Id, identificador de la localizacion*/
+    char name[WORD_SIZE + 1]; /*!<Variable char, nombre del player*/
+    Id object_id; /*!<Variable Id, identificador de la id del objeto del jugador*/
 };
 
 Player* player_create(Id id){

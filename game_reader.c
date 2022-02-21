@@ -3,6 +3,16 @@
 #include <string.h>
 #include "game_reader.h"
 
+/**
+ * @brief It defines the game loop
+ *
+ * @file game_loop.c
+ * @author Ignacio
+ * @version 2.0
+ * @date 12-02-2022
+ * @copyright GNU Public License
+ */
+
 STATUS game_add_space(Game *game, Space *space)
 {
   int i = 0;
