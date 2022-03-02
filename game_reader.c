@@ -13,7 +13,23 @@
  * @copyright GNU Public License
  */
 
-STATUS game_add_space(Game *game, Space *space)
+
+/**
+  * @brief añade un espacio al juego
+  * @author juan
+  *
+  * game_add_space añade un espacio al juego, menos si ya contiene el maximo numero de espacios
+  *  
+  * @param game puntero a game
+  * @param space puntero a space
+  * @return OK si ha ido todo bien o ERROR si ocure algun error
+  */
+STATUS game_reader_add_space(Game *game, Space *space);
+
+STATUS game_reader_add_object(Game *game, Object *object);
+
+
+STATUS game_reader_add_space(Game *game, Space *space)
 {
   int i = 0;
 
@@ -85,7 +101,84 @@ STATUS game_load_spaces(Game *game, char *filename)
         space_set_east(space, east);
         space_set_south(space, south);
         space_set_west(space, west);
-        game_add_space(game, space);
+        game_reader_add_space(game, space);
+      }
+    }
+  }
+
+  if (ferror(file))
+  {
+    status = ERROR;
+  }
+
+  fclose(file);
+
+  return status;
+}
+
+STATUS game_reader_add_object(Game *game, Object *object)
+{
+  int i = 0;
+
+  if (object == NULL)
+  {
+    return ERROR;
+  }
+
+  while (i < MAX_SET && game->set[i] != NULL)
+  {
+    i++;
+  }
+
+  if (i >= MAX_SET)
+  {
+    return ERROR;
+  }
+
+  return set_add(game->set[i], object_get_id(object)); 
+
+}
+
+STATUS game_load_objects(Game *game, char *filename)
+{
+  FILE *file = NULL;
+  char line[WORD_SIZE] = "";
+  char name[WORD_SIZE] = "";
+  char *toks = NULL;
+  Id id = NO_ID, space_id = NO_ID;
+  STATUS status = OK;
+  Object *object = NULL;
+
+  if (!filename)
+  {
+    return ERROR;
+  }
+
+  file = fopen(filename, "r");
+  if (file == NULL)
+  {
+    return ERROR;
+  }
+
+  while (fgets(line, WORD_SIZE, file))
+  {
+    if (strncmp("#o:", line, 3) == 0)
+    {
+      toks = strtok(line + 3, "|");
+      id = atol(toks);
+      toks = strtok(NULL, "|");
+      strcpy(name, toks);
+      toks = strtok(NULL, "|");
+      space_id = atol(toks);
+#ifdef DEBUG
+      printf("Leido: %ld|%s|%ld\n", id, name, space_id);
+#endif
+      object = object_create(id);
+      if (object != NULL)
+      {
+        object_set_name(object, name);
+        space_set_object(game_get_space(game,space_id),object_get_id(object));
+        game_reader_add_object(game, object);
       }
     }
   }

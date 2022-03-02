@@ -20,17 +20,8 @@
   */
 STATUS game_load_spaces(Game *game, char *filename);
 
-/**
-  * @brief añade un espacio al juego
-  * @author juan
-  *
-  * game_add_space añade un espacio al juego, menos si ya contiene el maximo numero de espacios
-  *  
-  * @param game puntero a game
-  * @param space puntero a space
-  * @return OK si ha ido todo bien o ERROR si ocure algun error
-  */
-STATUS game_add_space(Game *game, Space *space);
+STATUS game_load_objects(Game *game, char *filename);
+
 
 
 #endif

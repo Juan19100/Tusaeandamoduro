@@ -17,11 +17,14 @@
 #include "types.h"
 #include "player.h"
 #include "object.h"
+#include "set.h"
+#include "enemy.h"
 
 typedef struct _Game
 {
   Player *player; /*!<Puntero a la estructura player*/
-  Object *object; /*!<Puntero a la estructura object*/
+  Enemy *enemy; /*!<Puntero a la estructura enemy*/
+  Set *set[MAX_SET]; /*!<Puntero a la estructura object*/
   Space *spaces[MAX_SPACES]; /*!<Puntero a array de la estructura spaces*/
   T_Command last_cmd; /*!<Variable tipo T_Command*/
 } Game;
@@ -127,7 +130,7 @@ Id game_get_player_location(Game *game);
   * @param game puntero a game 
   * @return el espacio en el que se encuentra el objeto
   */
-Id game_get_object_location(Game *game);
+Id game_get_object_location(Game *game, Id id);
 
 /**
   * @brief busca el ultimo comando usado

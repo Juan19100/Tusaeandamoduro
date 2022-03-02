@@ -12,6 +12,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include "space.h"
+#include "set.h"
 
 /**
  * @brief Space
@@ -25,7 +26,7 @@ struct _Space {
   Id south;                 /*!< Id of the space at the south */
   Id east;                  /*!< Id of the space at the east */
   Id west;                  /*!< Id of the space at the west */
-  Id object;              /*!< Id of the object */
+  Set *objects;              /*!< Id of all objects in the space */
 };
 
 /** space_create allocates memory for a new space
@@ -47,7 +48,7 @@ Space* space_create(Id id) {
   newSpace->south = NO_ID;
   newSpace->east = NO_ID;
   newSpace->west = NO_ID;
-  newSpace->object = NO_ID;
+  newSpace->objects = set_create();
 
   return newSpace;
 }
@@ -58,6 +59,7 @@ Space* space_create(Id id) {
 STATUS space_destroy(Space* space) {
   if (!space) return ERROR;
 
+  set_destroy(space->objects); /*Posible error*/
   free(space);
   space = NULL;
   return OK;
@@ -165,22 +167,22 @@ Id space_get_west(Space* space) {
   return space->west;
 }
 
-/** It sets whether the space has an object or not
+/** It sets to the space an object
   */
 STATUS space_set_object(Space* space, Id value) {
   if (!space) {
     return ERROR;
   }
-  space->object = value;
+  set_add(space->objects, value);
   return OK;
 }
-/** It gets whether the space has an object or not
+/** It gets the space object with an id
   */
-Id space_get_object(Space* space) {
+Id space_get_object(Space* space, int position) {
   if (!space) {
     return FALSE;
   }
-  return space->object;
+  return set_get_object(space->objects, position);
 }
 
 /** It prints the space information
@@ -223,11 +225,13 @@ STATUS space_print(Space* space) {
   }
 
   /* 3. Print if there is an object in the space or not */
-  if (space_get_object(space)) {
+  /*if (space_get_object(space) != NO_ID) {
     fprintf(stdout, "---> Object in the space.\n");
   } else {
     fprintf(stdout, "---> No object in the space.\n");
-  }
+  }*/
+
+  set_print(space->objects);
 
   return OK;
 }

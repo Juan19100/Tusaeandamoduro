@@ -155,9 +155,10 @@ STATUS space_set_object(Space* space, Id value);
   * @author Profesores PPROG
   *
   * @param space a pointer to the space
-  * @return a boolean, specifying if in the space there is an object (TRUE) or not (FALSE)
+  * @param position position of the object
+  * @return an Id of the object
   */
-Id space_get_object(Space* space);
+Id space_get_object(Space* space, int position);
 
 /**
   * @brief It prints the space information

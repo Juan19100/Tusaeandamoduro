@@ -14,7 +14,6 @@
 #include <string.h>
 
 #include "types.h"
-#include "object.h"
 #include "player.h"
 
 
@@ -26,6 +25,7 @@
 struct _Player{
     Id id;  /*!<Variable Id, identificador del player*/
     Id location;/*!<Variable Id, identificador de la localizacion*/
+    int health; /*!<Variable int, identificador de la vida del player*/
     char name[WORD_SIZE + 1]; /*!<Variable char, nombre del player*/
     Id object_id; /*!<Variable Id, identificador de la id del objeto del jugador*/
 };
@@ -39,6 +39,7 @@ Player* player_create(Id id){
 
     newPlayer->name[0] = '\0';
     newPlayer->id = id;
+    newPlayer->health = 10;
     newPlayer->object_id = NO_ID;
     newPlayer->location = NO_ID;
 
@@ -98,6 +99,26 @@ STATUS player_set_object_id(Player *player, Id id){
     if(!player || id == NO_ID) return ERROR;
 
     player->object_id = id;
+
+    return OK;
+}
+
+STATUS player_print(Player* player){
+    if(!player) return ERROR;
+    fprintf(stdout, "--> Player (Id: %ld; Name: %s)\n", player->id, player->name);
+    return OK;
+}
+
+int player_get_health(Player *player){
+    if(!player) return -1;
+
+    return player->health;
+}
+
+STATUS player_set_health(Player *player, int health){
+    if(!player || health <= 0) return ERROR;
+
+    player->health = health;
 
     return OK;
 }

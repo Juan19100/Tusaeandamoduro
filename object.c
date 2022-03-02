@@ -1,7 +1,7 @@
 /**
  * @brief It defines the game loop
  *
- * @file game_loop.c
+ * @file object.c
  * @author Juan
  * @version 2.0
  * @date 17-02-2022

@@ -8,3 +8,7 @@
 #s:123|Pasillo 3|122|-1|124|-1
 #s:124|Pasillo4|123|-1|13|-1
 #s:13|Despensa|124|-1|-1|-1
+#o:21|Grano|11
+#o:22|Piedra|121
+#o:23|Espada|13
+#o:24|Escudo|122

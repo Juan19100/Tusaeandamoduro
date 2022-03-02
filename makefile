@@ -7,7 +7,7 @@ CLIBS=-lscreen -L.
 
 all: hormiguero
 #ENLAZAMOS LOS ARCHIVOS PARA CREAR EL EJECUTABLE HORMIGUERO
-hormiguero: command.o game_loop.o game.o graphic_engine.o space.o game_reader.o player.o object.o
+hormiguero: command.o game_loop.o game.o graphic_engine.o set.o space.o game_reader.o player.o object.o
 	$(CC) -o$@ $^ $(CLIBS)
 
 #LOS ARCHIVOS .O
@@ -26,14 +26,18 @@ game.o: game.c game.h command.h space.h types.h player.h object.h game_reader.h
 graphic_engine.o: graphic_engine.c graphic_engine.h game.h command.h space.h types.h player.h object.h libscreen.h
 	$(CC) $(CFLAGS) -c $<
 
-space.o: space.c space.h types.h
+space.o: space.c space.h types.h set.h
 	$(CC) $(CFLAGS) -c $< 
 
-player.o: player.c types.h object.h player.h
+player.o: player.c types.h player.h
 	$(CC) $(CFLAGS) -c $<
 
 object.o: object.c object.h types.h
 	$(CC) $(CFLAGS) -c $<
+
+set.o: set.c set.h types.h
+	$(CC) $(CFLAGS) -c $<
+
 #LIMPIEZA
 clean:
 	rm *.o 
