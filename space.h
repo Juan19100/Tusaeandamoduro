@@ -17,6 +17,8 @@ typedef struct _Space Space;
 
 #define MAX_SPACES 100
 #define FIRST_SPACE 1
+#define MAX_WIDTH 9
+#define MAX_HEIGHT 5
 
 /**
   * @brief It creates a new space

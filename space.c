@@ -27,6 +27,8 @@ struct _Space {
   Id east;                  /*!< Id of the space at the east */
   Id west;                  /*!< Id of the space at the west */
   Set *objects;              /*!< Id of all objects in the space */
+  char gdesc[MAX_HEIGHT][MAX_WIDTH]; /*!< tabla para la representacion de cada space */
+
 };
 
 /** space_create allocates memory for a new space
@@ -34,6 +36,7 @@ struct _Space {
   */
 Space* space_create(Id id) {
   Space *newSpace = NULL;
+  int i, j;
 
   /* Error control */
   if (id == NO_ID) return NULL;
@@ -49,6 +52,8 @@ Space* space_create(Id id) {
   newSpace->east = NO_ID;
   newSpace->west = NO_ID;
   newSpace->objects = set_create();
+  newSpace->gdesc[0][0] = '\0';
+
 
   return newSpace;
 }
