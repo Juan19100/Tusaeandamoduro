@@ -52,8 +52,11 @@ Space* space_create(Id id) {
   newSpace->east = NO_ID;
   newSpace->west = NO_ID;
   newSpace->objects = set_create();
-  newSpace->gdesc[0][0] = '\0';
-
+  for(i=0;i<MAX_HEIGHT;i++){
+    for(j=0;j<MAX_WIDTH;j++){
+      newSpace->gdesc[i][j] = ' ';
+    }
+  }
 
   return newSpace;
 }
@@ -240,4 +243,3 @@ STATUS space_print(Space* space) {
 
   return OK;
 }
-

@@ -12,11 +12,16 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <math.h>
+#include <time.h>
 #include "game.h"
 #include "game_reader.h"
 #include "player.h"
 #include "object.h"
 #include "set.h"
+#include "enemy.h"
+
+#define MAX_RAND 9
 
 /**
    Private functions
@@ -31,6 +36,9 @@ void game_command_next(Game *game);
 void game_command_back(Game *game);
 void game_command_take(Game *game);
 void game_command_drop(Game *game);
+void game_command_right(Game *game);
+void game_command_left(Game *game);
+STATUS game_command_attack(Game *game);
 
 /**
    Game interface implementation
@@ -133,6 +141,17 @@ STATUS game_set_player_location(Game *game, Id id)
   return player_set_location(game->player, id);
 }
 
+STATUS game_set_enemy_location(Game *game, Id id)
+{
+
+  if (id == NO_ID)
+  {
+    return ERROR;
+  }
+
+  return enemy_set_location(game->enemy, id);
+}
+
 STATUS game_set_object_location(Game *game, Id space_id, Id object_id)
 {
   Space *location = NULL;
@@ -153,6 +172,13 @@ Id game_get_player_location(Game *game)
   if(!game) return NO_ID;
 
   return player_get_location(game->player);
+}
+
+Id game_get_enemy_location(Game *game)
+{
+  if(!game) return NO_ID;
+
+  return enemy_location(game->enemy);
 }
 
 Id game_get_object_location(Game *game, Id id)
@@ -208,6 +234,18 @@ STATUS game_update(Game *game, T_Command cmd)
       game_command_drop(game);
       break;
 
+    case RIGHT:
+      game_command_right(game);
+      break;
+
+    case LEFT:
+      game_command_left(game);
+      break;
+
+    case ATTACK:
+      game_command_attack(game);
+      break;
+
     default:
       break;
   }
@@ -240,7 +278,7 @@ void game_print_data(Game *game)
 
 BOOL game_is_over(Game *game)
 {
-  return FALSE;
+  if(player_get_health(game->player)==0)return FALSE;
 }
 
 /**
@@ -345,4 +383,89 @@ void game_command_drop(Game *game)
   if(space_set_object(game_get_space(game, space_id), object_id) == ERROR) return;
 
   if(player_set_object_id(game->player, NO_ID) == ERROR) return;
+}
+
+void game_command_right(Game *game)
+{
+  int i = 0;
+  Id current_id = NO_ID;
+  Id space_id = NO_ID;
+
+  space_id = game_get_player_location(game);
+  if (space_id == NO_ID)
+  {
+    return;
+  }
+
+  for (i = 0; i < MAX_SPACES && game->spaces[i] != NULL; i++)
+  {
+    current_id = space_get_id(game->spaces[i]);
+    if (current_id == space_id)
+    {
+      current_id = space_get_south(game->spaces[i]);
+      if (current_id != NO_ID)
+      {
+        player_set_location(game->player, current_id);
+      }
+      return;
+    }
+  }
+}
+
+void game_command_left(Game *game)
+{
+  int i = 0;
+  Id current_id = NO_ID;
+  Id space_id = NO_ID;
+
+  space_id = game_get_player_location(game);
+  if (space_id == NO_ID)
+  {
+    return;
+  }
+
+  for (i = 0; i < MAX_SPACES && game->spaces[i] != NULL; i++)
+  {
+    current_id = space_get_id(game->spaces[i]);
+    if (current_id == space_id)
+    {
+      current_id = space_get_west(game->spaces[i]);
+      if (current_id != NO_ID)
+      {
+        player_set_location(game->player, current_id);
+      }
+      return;
+    }
+  }
+}
+
+STATUS game_command_attack(Game *game)
+{
+
+  srand(time(NULL));
+
+  if (game_get_player_location(game) != game_get_enemy_location(game)){
+    printf("el enemigo no esta en el mismo espacio que el jugador");
+    return ERROR; 
+  };
+  
+  if(enemy_get_health(game->enemy)<=0){
+    printf("el enemigo ya esta a 0 de vida");
+    return ERROR;
+  };
+
+  if(rand() % MAX_RAND<= 4){
+    player_set_healt(game->player, (player_get_health(game->player)-1));
+    if(player_get_health(game->player)==0){
+        if(game_is_over(game)==FALSE);
+        return OK;
+    }
+    return OK;
+  };
+
+  if(rand() % MAX_RAND>= 5){
+    enemy_set_healt(game->enemy, (enemy_get_health(game->enemy)-1));
+    return OK;
+  };
+
 }
