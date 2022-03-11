@@ -40,6 +40,7 @@ Enemy* enemy_create(Id id){
     newEnemy->name[0] = '\0';
     newEnemy->id = id;
     newEnemy->location = NO_ID;
+    newEnemy->health = 10;
 
     return newEnemy;
 }

@@ -45,7 +45,17 @@ void test2_space_set_name();
  * @post Output==ERROR
  */
 void test3_space_set_name();
+/**
+ * @brief 
+ * @pre
+ *@post
+ */
 void test1_space_set_north();
+/**
+ * @brief 
+ * @pre
+ *@post
+ */
 void test2_space_set_north();
 void test3_space_set_north();
 void test4_space_set_north();

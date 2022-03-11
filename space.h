@@ -172,4 +172,23 @@ Id space_get_object(Space* space, int position);
   */
 STATUS space_print(Space* space);
 
+/**
+ * @brief devuelve la cadena de caracteres de la fila del espacio correspondiente
+ * 
+ * @param space puntero a space
+ * @param position fila correspondiente de gdesc
+ * @return char* la fila que se busca
+ */
+char *space_get_gdesc(Space *space, int position);
+
+/**
+ * @brief 
+ * 
+ * @param space 
+ * @param position 
+ * @param gdesc 
+ * @return STATUS 
+ */
+STATUS space_set_gdesc(Space *space, int position, char *gdesc);
+
 #endif

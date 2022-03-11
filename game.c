@@ -75,7 +75,7 @@ STATUS game_create_from_file(Game *game, char *filename)
 
   /* The player and the object are located in the first space */
   game_set_player_location(game, game_get_space_id_at(game, 0));
-  for(i=0; i < set_get_num_ids; i++){
+  for(i=0; i < MAX_SET; i++){
     game_set_object_location(game, game_get_space_id_at(game, 0), set_get_object(game->set[i],0));
   }
   
@@ -92,6 +92,7 @@ STATUS game_destroy(Game *game)
     space_destroy(game->spaces[i]);
   }
   player_destroy(game->player);
+  enemy_destroy(game->enemy);
   for(i=0; i < MAX_SPACES && game->set[i] != NULL; i++){
     set_destroy(game->set[i]);
   }
@@ -178,7 +179,7 @@ Id game_get_enemy_location(Game *game)
 {
   if(!game) return NO_ID;
 
-  return enemy_location(game->enemy);
+  return enemy_get_location(game->enemy);
 }
 
 Id game_get_object_location(Game *game, Id id)
@@ -279,6 +280,8 @@ void game_print_data(Game *game)
 BOOL game_is_over(Game *game)
 {
   if(player_get_health(game->player)==0)return FALSE;
+
+  return FALSE;
 }
 
 /**
@@ -441,31 +444,33 @@ void game_command_left(Game *game)
 
 STATUS game_command_attack(Game *game)
 {
-
+  int x=0;
   srand(time(NULL));
 
   if (game_get_player_location(game) != game_get_enemy_location(game)){
     printf("el enemigo no esta en el mismo espacio que el jugador");
     return ERROR; 
-  };
+  }
   
   if(enemy_get_health(game->enemy)<=0){
     printf("el enemigo ya esta a 0 de vida");
     return ERROR;
-  };
+  }
 
-  if(rand() % MAX_RAND<= 4){
-    player_set_healt(game->player, (player_get_health(game->player)-1));
+  x = rand() % MAX_RAND;
+
+  if(x <= 4){
+    player_set_health(game->player, (player_get_health(game->player)-1));
     if(player_get_health(game->player)==0){
         if(game_is_over(game)==FALSE);
         return OK;
     }
     return OK;
-  };
+  }
 
-  if(rand() % MAX_RAND>= 5){
-    enemy_set_healt(game->enemy, (enemy_get_health(game->enemy)-1));
+  else {
+    enemy_set_health(game->enemy, (enemy_get_health(game->enemy)-1));
     return OK;
-  };
-
+  }
+  /*posible error*/
 }

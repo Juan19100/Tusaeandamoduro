@@ -36,7 +36,7 @@ struct _Space {
   */
 Space* space_create(Id id) {
   Space *newSpace = NULL;
-  int i, j;
+  int i;
 
   /* Error control */
   if (id == NO_ID) return NULL;
@@ -53,9 +53,7 @@ Space* space_create(Id id) {
   newSpace->west = NO_ID;
   newSpace->objects = set_create();
   for(i=0;i<MAX_HEIGHT;i++){
-    for(j=0;j<MAX_WIDTH;j++){
-      newSpace->gdesc[i][j] = ' ';
-    }
+    newSpace->gdesc[i][0] = '\0';
   }
 
   return newSpace;
@@ -242,4 +240,21 @@ STATUS space_print(Space* space) {
   set_print(space->objects);
 
   return OK;
+}
+
+char *space_get_gdesc(Space *space, int position){
+  if(!space)return NULL;
+
+  if(position < 0)return NULL;
+
+  return space->gdesc[position];
+}
+
+STATUS space_set_gdesc(Space *space, int position, char *gdesc){
+  if(!space|| !gdesc)return ERROR;
+  
+  strcpy(space->gdesc[position], gdesc);
+
+  return OK;
+
 }

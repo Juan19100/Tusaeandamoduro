@@ -69,7 +69,7 @@ Id set_get_object(Set* set, int position){
 }
 
 int set_get_position(Set* set, Id object_id){
-    int i, j;
+    int i;
 
     if(!set || object_id == NO_ID) return -1;
 

@@ -96,18 +96,14 @@ Id enemy_get_location(Enemy* enemy);
   */
 STATUS enemy_set_location(Enemy* enemy, Id location);
 
-/**
-  * @brief busca el id del objeto que tiene el enemigo
-  * @author Ignacio
-  *
-  * enemy_get_object_id busca el id del objeto que tiene el enemigo
-  *  
-  * @param enemy puntero a player
-  * @return el id del objeto del enemigo
-  */
-Id enemy_get_object_id(Enemy* enemy);
-
 int enemy_get_health(Enemy* enemy); /*documentar*/
-STATUS enemy_set_healt(Enemy* enemy, int health);
+/**
+ * @brief 
+ * 
+ * @param enemy 
+ * @param health 
+ * @return STATUS 
+ */
+STATUS enemy_set_health(Enemy* enemy, int health);
 
 #endif

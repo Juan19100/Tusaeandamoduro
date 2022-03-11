@@ -120,6 +120,6 @@ Id player_get_object_id(Player *player);
 STATUS player_set_object_id(Player *player, Id id);
 
 int player_get_health(Player* player); /*documentar*/
-STATUS player_set_healt(Player* player, int health);
+STATUS player_set_health(Player* player, int health);
 
 #endif

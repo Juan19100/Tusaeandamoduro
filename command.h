@@ -12,7 +12,7 @@
 #define COMMAND_H
 
 #define N_CMDT 2
-#define N_CMD 7 /*Lo hemos ampliado*/
+#define N_CMD 10 /*Lo hemos ampliado*/
 
 typedef enum enum_CmdType {
   CMDS,

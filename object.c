@@ -72,3 +72,4 @@ STATUS object_print(Object* object){
     fprintf(stdout, "--> Object (Id: %ld; Name: %s)\n", object->id, object->name);
     return OK;
 }
+

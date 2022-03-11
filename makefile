@@ -6,10 +6,22 @@ CLIBS=-lscreen -L.
 .PHONY=clean
 
 all: hormiguero
+
+ex:
+	./hormiguero hormiguero.dat
+runv:
+	valgrind --leak-check=full ./hormiguero hormiguero.dat
 #ENLAZAMOS LOS ARCHIVOS PARA CREAR EL EJECUTABLE HORMIGUERO
-hormiguero: command.o game_loop.o game.o graphic_engine.o set.o space.o game_reader.o player.o object.o
+hormiguero: command.o game_loop.o game.o graphic_engine.o set.o space.o game_reader.o player.o object.o enemy.o
 	$(CC) -o$@ $^ $(CLIBS)
+
+space_test: space_test.c space.c 
+	$(CC) -o$@ $^ $(CLIBS)
+	
 set_test : set_test.o set.o
+	$(CC) -o$@ $^ $(CLIBS)
+
+enemy_test : enemy_test.o enemy.o set.o
 	$(CC) -o$@ $^ $(CLIBS)
 #LOS ARCHIVOS .O
 game_reader.o: game_reader.c game_reader.h game.h command.h space.h types.h player.h object.h
@@ -39,10 +51,16 @@ enemy.o: enemy.c types.h object.h enemy.h
 object.o: object.c object.h types.h
 	$(CC) $(CFLAGS) -c $<
 
+space_test.o: space_test.c space.h types.h space_test.h test.h
+	$(CC) $(CFLAGS) -c $<
+
 set.o: set.c set.h types.h
 	$(CC) $(CFLAGS) -c $<
 
 set_test.o: set_test.c set.h types.h set_test.h test.h
+	$(CC) $(CFLAGS) -c $<
+
+enemy_test.o: enemy_test.c types.h enemy_test.h set.h enemy.h
 	$(CC) $(CFLAGS) -c $<
 #LIMPIEZA
 clean:
