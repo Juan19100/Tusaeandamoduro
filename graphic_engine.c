@@ -140,15 +140,15 @@ void graphic_engine_paint_game(Graphic_engine *ge, Game *game)
         }
       }
       if(id_right != NO_ID && id_left == NO_ID){
-        sprintf(str, "  |%d %d %d %d  %d|>>", (int)obj[0], (int)obj[1],(int)obj[2],(int)obj[3],(int)obj[4]);
+        sprintf(str, "  |%d %d %d %d  %d |>>", (int)obj[0], (int)obj[1],(int)obj[2],(int)obj[3],(int)obj[4]);
         screen_area_puts(ge->map, str);
       }
       else if(id_left != NO_ID && id_right == NO_ID){
-        sprintf(str, "<<|%d %d %d %d  %d|", (int)obj[0], (int)obj[1],(int)obj[2],(int)obj[3],(int)obj[4]);
+        sprintf(str, "<<|%d %d %d %d  %d |", (int)obj[0], (int)obj[1],(int)obj[2],(int)obj[3],(int)obj[4]);
         screen_area_puts(ge->map, str);
       }
       else if(id_right != NO_ID && id_left != NO_ID){
-        sprintf(str, "<<|%d %d %d %d  %d|>>", (int)obj[0], (int)obj[1],(int)obj[2],(int)obj[3],(int)obj[4]);
+        sprintf(str, "<<|%d  %d  %d %d %d|>>", (int)obj[0], (int)obj[1],(int)obj[2],(int)obj[3],(int)obj[4]);
         screen_area_puts(ge->map, str);
       }
       else{
