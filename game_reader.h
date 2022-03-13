@@ -20,7 +20,19 @@
   */
 STATUS game_load_spaces(Game *game, char *filename);
 
+
+/**
+  * @brief carga objetos
+  * @author juan
+  *
+  * game_load_objects carga los objetos de un fichero en el juego, inicializando
+  *  los valores del juego a 0 y luego cargando los datos del archivo
+  * @param game puntero a game
+  * @param filename puntero a char
+  * @return OK si ha ido todo bien o ERROR si ocure algun error
+  */
 STATUS game_load_objects(Game *game, char *filename);
+
 
 
 

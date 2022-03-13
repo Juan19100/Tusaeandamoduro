@@ -13,12 +13,11 @@
  * @copyright GNU Public License
  */
 
-
 /**
   * @brief añade un espacio al juego
   * @author juan
   *
-  * game_add_space añade un espacio al juego, menos si ya contiene el maximo numero de espacios
+  * game_reader_add_space añade un espacio al juego, menos si ya contiene el maximo numero de espacios
   *  
   * @param game puntero a game
   * @param space puntero a space
@@ -26,6 +25,18 @@
   */
 STATUS game_reader_add_space(Game *game, Space *space);
 
+
+/**
+  * @brief añade un objeto al juego
+  * @author juan
+  *
+  * game_reader_add_object añade un objeto al juego, menos si ya contiene el maximo numero de objetos
+  *  
+  * @param game puntero a game
+  * @param space puntero al espacio
+  * @param Object puntero a objeto
+  * @return OK si ha ido todo bien o ERROR si ocure algun error
+  */
 STATUS game_reader_add_object(Game *game, Object *object);
 
 
@@ -58,7 +69,7 @@ STATUS game_load_spaces(Game *game, char *filename)
   FILE *file = NULL;
   char line[WORD_SIZE] = "";
   char name[WORD_SIZE] = "";
-  char *toks = NULL, descr[MAX_HEIGHT][255];
+  char *toks = NULL, descr[MAX_HEIGHT][WORD_SIZE+1];
   Id id = NO_ID, north = NO_ID, east = NO_ID, south = NO_ID, west = NO_ID;
   Space *space = NULL;
   STATUS status = OK;
@@ -93,7 +104,7 @@ STATUS game_load_spaces(Game *game, char *filename)
       west = atol(toks);
       for(i=0; i < MAX_HEIGHT; i++){
         toks = strtok(NULL, "|");
-        strcpy(descr[i], toks);
+        strcpy(descr[i],toks);
       }
 #ifdef DEBUG
       printf("Leido: %ld|%s|%ld|%ld|%ld|%ld\n", id, name, north, east, south, west);
@@ -106,10 +117,10 @@ STATUS game_load_spaces(Game *game, char *filename)
         space_set_east(space, east);
         space_set_south(space, south);
         space_set_west(space, west);
-        game_reader_add_space(game, space);
-        for(i=0; i < MAX_HEIGHT; i++){
-          space_set_gdesc(game_get_space(game,id), i, descr[i]);
+        for(i=0; i < MAX_HEIGHT ; i++){
+          space_set_gdesc(space, i, descr[i]);
         }
+        game_reader_add_space(game, space);
       }
     }
   }
@@ -126,24 +137,25 @@ STATUS game_load_spaces(Game *game, char *filename)
 
 STATUS game_reader_add_object(Game *game, Object *object)
 {
-  int i = 0;
-
-  if (object == NULL)
+  int i=0;
+  if (object == NULL || game == NULL)
   {
     return ERROR;
   }
 
-  while (i < MAX_SET && game->set[i] != NULL)
+  while (i < MAX_OBJECTS && game->object[i] != NULL)
   {
     i++;
   }
 
-  if (i >= MAX_SET)
+  if (i >= MAX_OBJECTS)
   {
     return ERROR;
   }
+  
+  game->object[i] = object;
 
-  return set_add(game->set[i], object_get_id(object)); 
+  return OK; 
 
 }
 
@@ -185,7 +197,7 @@ STATUS game_load_objects(Game *game, char *filename)
       if (object != NULL)
       {
         object_set_name(object, name);
-        space_set_object(game_get_space(game,space_id),object_get_id(object));
+        space_set_object(game_get_space(game,space_id), id);
         game_reader_add_object(game, object);
       }
     }

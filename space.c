@@ -27,8 +27,7 @@ struct _Space {
   Id east;                  /*!< Id of the space at the east */
   Id west;                  /*!< Id of the space at the west */
   Set *objects;              /*!< Id of all objects in the space */
-  char gdesc[MAX_HEIGHT][MAX_WIDTH]; /*!< tabla para la representacion de cada space */
-
+  char gdesc[MAX_HEIGHT][MAX_WIDTH+1]; /*!< tabla para la representacion de cada space */
 };
 
 /** space_create allocates memory for a new space
@@ -179,8 +178,8 @@ STATUS space_set_object(Space* space, Id value) {
   if (!space) {
     return ERROR;
   }
-  set_add(space->objects, value);
-  return OK;
+  
+  return set_add(space->objects, value);
 }
 /** It gets the space object with an id
   */
@@ -254,7 +253,15 @@ STATUS space_set_gdesc(Space *space, int position, char *gdesc){
   if(!space|| !gdesc)return ERROR;
   
   strcpy(space->gdesc[position], gdesc);
-
   return OK;
 
+}
+
+BOOL space_has_object(Space *space, Id id){
+  int i;
+  for(i=0; i < MAX_SET; i++){
+    if(set_get_object(space->objects,i)  == id) return TRUE;
+  }
+
+  return FALSE;
 }

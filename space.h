@@ -191,4 +191,7 @@ char *space_get_gdesc(Space *space, int position);
  */
 STATUS space_set_gdesc(Space *space, int position, char *gdesc);
 
+BOOL space_has_object(Space *space, Id id);
+
+
 #endif

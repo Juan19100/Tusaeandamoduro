@@ -2,6 +2,7 @@
 #define OBJECT_H
 
 #include "types.h"
+#define MAX_OBJECTS 10
 
 typedef struct _Object Object;
 

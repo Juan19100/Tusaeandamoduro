@@ -26,18 +26,96 @@
 /**
    Private functions
 */
+STATUS game_set_enemy_location(Game *game, Id id)
+{
+
+  if (id == NO_ID)
+  {
+    return ERROR;
+  }
+
+  return enemy_set_location(game->enemy, id);
+}
+/**
+ * @brief devuelve el id del espacio con id == position
+ * 
+ * @param game puntero a game
+ * @param position tipo int
+ * @return Id del espacio
+ */
 Id game_get_space_id_at(Game *game, int position);
+
+/**
+ * @brief settea la localización del jugador
+ * 
+ * @param game puntero a Game
+ * @param id tipo id
+ * @return STATUS, OK si todo ha ido bien, ERROR de lo contrario 
+ */
 STATUS game_set_player_location(Game *game, Id id);
+/**
+ * @brief settea la localización de un objeto
+ * 
+ * @param game puntero a Game
+ * @param space_id tipo id
+ * @param object_id tipo id
+ * @return STATUS , OK si todo ha ido bien, ERROR de lo contrario
+ */
 STATUS game_set_object_location(Game *game, Id space_id, Id object_id);
 
+/**
+ * @brief comando desconocido
+ * 
+ * @param game puntero a game
+ */
 void game_command_unknown(Game *game);
+/**
+ * @brief comando desconocido
+ * 
+ * @param game puntero a game
+ */
 void game_command_exit(Game *game);
+/**
+ * @brief comando para avanzar de casilla hacia el sur
+ * 
+ * @param game puntero a game
+ */
 void game_command_next(Game *game);
+/**
+ * @brief comando para avanzar de casilla hacia el norte
+ * 
+ * @param game puntero a game
+ */
 void game_command_back(Game *game);
+/**
+ * @brief comando para coger el objeto de la casilla actual si lo hay
+ * 
+ * @param game puntero a game
+ */
 void game_command_take(Game *game);
+/**
+ * @brief comando para dejar el objeto del jugador en el espacio actual
+ * 
+ * @param game puntero a game
+ */
 void game_command_drop(Game *game);
+/**
+ * @brief comando para avanzar de casilla hacia el este
+ * 
+ * @param game puntero a game
+ */
 void game_command_right(Game *game);
+/**
+ * @brief comando para avanzar de casilla hacia el oeste
+ * 
+ * @param game puntero a game
+ */
 void game_command_left(Game *game);
+/**
+ * @brief comando para atacar al enemigo, con probabilidad aleatoria de hacerle daño o de quitarle vida al jugador
+ * 
+ * @param game puntero a game
+ */
 STATUS game_command_attack(Game *game);
 
 /**
@@ -55,9 +133,11 @@ STATUS game_create(Game *game)
 
   game->player= player_create(11);
   game->enemy = enemy_create(31);
-  for(i=0; i < MAX_SET; i++){
-    game->set[i] = NULL;
+
+  for(i=0; i < MAX_OBJECTS; i++){
+    game->object[i] = NULL;
   }
+
   game->last_cmd = NO_CMD;
 
   return OK;
@@ -70,15 +150,15 @@ STATUS game_create_from_file(Game *game, char *filename)
   if (game_create(game) == ERROR)
     return ERROR;
 
-  if (game_load_spaces(game, filename) == ERROR)
+  if (game_load_spaces(game, filename) == ERROR || game_load_objects(game, filename) == ERROR)
     return ERROR;
 
   /* The player and the object are located in the first space */
   game_set_player_location(game, game_get_space_id_at(game, 0));
   for(i=0; i < MAX_SET; i++){
-    game_set_object_location(game, game_get_space_id_at(game, 0), set_get_object(game->set[i],0));
+    game_set_object_location(game, game_get_space_id_at(game, 0), game_get_object_location(game,game_get_space_id_at(game, 0)));
   }
-  
+  game_set_enemy_location(game, 13);
 
   return OK;
 }
@@ -93,8 +173,8 @@ STATUS game_destroy(Game *game)
   }
   player_destroy(game->player);
   enemy_destroy(game->enemy);
-  for(i=0; i < MAX_SPACES && game->set[i] != NULL; i++){
-    set_destroy(game->set[i]);
+  for(i=0; i < MAX_OBJECTS && game->object[i] != NULL; i++){
+    object_destroy(game->object[i]);
   }
 
   return OK;
@@ -142,17 +222,6 @@ STATUS game_set_player_location(Game *game, Id id)
   return player_set_location(game->player, id);
 }
 
-STATUS game_set_enemy_location(Game *game, Id id)
-{
-
-  if (id == NO_ID)
-  {
-    return ERROR;
-  }
-
-  return enemy_set_location(game->enemy, id);
-}
-
 STATUS game_set_object_location(Game *game, Id space_id, Id object_id)
 {
   Space *location = NULL;
@@ -188,14 +257,8 @@ Id game_get_object_location(Game *game, Id id)
 
   if(!game) return NO_ID;
 
-  /*for(i = 0; i < MAX_SPACES; i++){
-    if(space_get_object(game->spaces[i]) == object_get_id(game->object)){
-      return space_get_id(game->spaces[i]);
-    }
-  }*/
-
-  for(i=0; i < MAX_SPACES; i++){
-    for(j=0; j < 10/*MAX_SET*/; j++){
+  for(i=0; i < MAX_SPACES && game->spaces[i] != NULL; i++){
+    for(j=0; j < MAX_OBJECTS && game->object[j] != NULL; j++){
       if(space_get_object(game->spaces[i], j) == id){
         return space_get_id(game->spaces[i]);
       }
@@ -271,9 +334,9 @@ void game_print_data(Game *game)
     space_print(game->spaces[i]);
   }
 
-  for(i=0; i < MAX_SET; i++){
+  /*for(i=0; i < MAX_SET; i++){
     set_print(game->set[i]);
-  }
+  }*/
   player_print(game->player);
 }
 
@@ -405,7 +468,7 @@ void game_command_right(Game *game)
     current_id = space_get_id(game->spaces[i]);
     if (current_id == space_id)
     {
-      current_id = space_get_south(game->spaces[i]);
+      current_id = space_get_east(game->spaces[i]);
       if (current_id != NO_ID)
       {
         player_set_location(game->player, current_id);
@@ -473,4 +536,34 @@ STATUS game_command_attack(Game *game)
     return OK;
   }
   /*posible error*/
+}
+
+STATUS game_add_object(Game* game, Id id){
+  int i;
+  if(!game) return ERROR;
+
+  while(game->object[i] != NULL){
+    i++;
+  }
+
+  if(i >= MAX_OBJECTS) return ERROR;
+
+  game->object[i] = object_create(id);
+
+  return OK;
+}
+
+int game_get_num_object(Game* game){
+  int i=0;
+
+  while(game->object[i] != NULL){
+    i++;
+  }
+
+  return i;
+}
+
+Id game_get_object(Game* game, int position){
+  if(!game) return NO_ID;
+  return object_get_id(game->object[position]);
 }

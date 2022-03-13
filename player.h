@@ -119,7 +119,23 @@ Id player_get_object_id(Player *player);
   */
 STATUS player_set_object_id(Player *player, Id id);
 
-int player_get_health(Player* player); /*documentar*/
+/**
+ * @brief obtiene la vida de player
+ * @author Ignacio
+ * 
+ * @param player puntero a player
+ * @return int que corresponde a la vida y -1 en caso de error
+ */
+int player_get_health(Player* player);
+
+/**
+ * @brief asigna la vida al jugador
+ * @author Ignacio
+ * 
+ * @param player puntero a player
+ * @param health la vida nueva a asignar
+ * @return STATUS si todo ha ido bien, ERROR en caso contrario
+ */
 STATUS player_set_health(Player* player, int health);
 
 #endif

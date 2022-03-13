@@ -1,6 +1,6 @@
 /** 
  * @brief .c que sirve para todo lo relacionado con 
- * el jugadenemigoor
+ * el enemigo
  * 
  * @file enemy.c
  * @author Juan

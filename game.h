@@ -24,7 +24,7 @@ typedef struct _Game
 {
   Player *player; /*!<Puntero a la estructura player*/
   Enemy *enemy; /*!<Puntero a la estructura enemy*/
-  Set *set[MAX_SET]; /*!<Puntero a la estructura object*/
+  Object *object[MAX_OBJECTS]; /*!<Puntero a la estructura object*/
   Space *spaces[MAX_SPACES]; /*!<Puntero a array de la estructura spaces*/
   T_Command last_cmd; /*!<Variable tipo T_Command*/
 } Game;
@@ -142,4 +142,33 @@ Id game_get_object_location(Game *game, Id id);
   * @return el ultimo comando utilizado
   */
 T_Command game_get_last_command(Game *game);
+/**
+ * @brief añade un objeto al juego
+ * @author Ignacio
+ * 
+ * @param game puntero a game
+ * @param id del objeto a añadir
+ * @return STATUS si se ha añadido, ERROR en caso contrario
+ */
+STATUS game_add_object(Game* game, Id id);
+
+/**
+ * @brief devuelce el número de objetos que contiene game
+ * @author Ignacio
+ * 
+ * @param game puntero a game
+ * @return número de objetos y -1 en caso de error
+ */
+int game_get_num_object(Game* game);
+
+/**
+ * @brief devuelve el objeto de una posición
+ * @author Ignacio
+ * 
+ * @param game puntero a game
+ * @param position posición buscada
+ * @return Id del objeto, NO_ID en caso de error 
+ */
+Id game_get_object(Game* game, int position);
+
 #endif

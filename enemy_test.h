@@ -1,8 +1,8 @@
 /** 
- * @brief It declares the tests for the space module
+ * @brief It declares the tests for the enemy module
  * 
  * @file space_test.h
- * @author Profesores Pprog
+ * @author nacho
  * @version 2.0 
  * @date 09-03-2021
  * @copyright GNU Public License
@@ -48,25 +48,90 @@ void test2_enemy_set_name();
 void test3_enemy_set_name();
 
 
+/**
+ * @test prueba la funcionalidad de conseguir el nombre del enemigo
+ * @pre  puntero a enemigo no nulo
+ * @post Output == 0
+ */
 void test1_enemy_get_name();
+/**
+ * @test prueba la funcionalidad de conseguir el nombre del enemigo
+ * @pre  puntero a enemigo = NULL
+ * @post Output == NULL
+ */
 void test2_enemy_get_name();
 
-
+/**
+ * @test prueba la funcionalidad de conseguir el id del enemigo
+ * @pre  puntero a enemigo no nulo
+ * @post output == 25
+ */
 void test1_enemy_get_id();
+/**
+ * @test prueba la funcionalidad de conseguir el id del enemigo
+ * @pre  puntero a enemigo nulo
+ * @post output == NO_ID
+ */
 void test2_enemy_get_id();
-
+/**
+ * @test prueba la funcionalidad de cambiar la localizacion del enemigo
+ * @pre  puntero a enemigo no nulo
+ * @post output == OK
+ */
 void test1_enemy_set_location();
+/**
+ * @test prueba la funcionalidad de cambiar la localizacion del enemigo
+ * @pre  puntero a enemigo nulo
+ * @post output == ERROR
+ */
 void test2_enemy_set_location();
+/**
+ * @test prueba la funcionalidad de cambiar la localizacion del enemigo
+ * @pre  puntero a enemigo no nulo
+ * @post output == ERROR
+ */
 void test3_enemy_set_location();
-
+/**
+ * @test prueba la funcionalidad de conseguir la localizacion del enemigo
+ * @pre  puntero a enemigo no nulo
+ * @post localizacion del enemigo == localizacion setteada
+ */
 void test1_enemy_get_location();
+/**
+ * @test prueba la funcionalidad de conseguir la localizacion del enemigo
+ * @pre  puntero a enemigo nulo
+ * @post output == NO_ID
+ */
 void test2_enemy_get_location();
-
+/**
+ * @test prueba la funcionalidad de conseguir la salud del enemigo
+ * @pre  puntero a enemigo no nulo
+ * @post salud del enemigo == salud setteada
+ */
 void test1_enemy_get_health();
+/**
+ * @test prueba la funcionalidad de conseguir la salud del enemigo
+ * @pre  puntero a enemigo nulo
+ * @post salud del enemigo != 15
+ */
 void test2_enemy_get_health();
-
+/**
+ * @test prueba la funcionalidad de cambiar la salud del enemigo
+ * @pre  puntero a enemigo no nulo
+ * @post salud del enemigo == salud setteada
+ */
 void test1_enemy_set_health();
+/**
+ * @test prueba la funcionalidad de cambiar la salud del enemigo
+ * @pre  puntero a enemigo nulo
+ * @post salud del enemigo != 2
+ */
 void test2_enemy_set_health();
+/**
+ * @test prueba la funcionalidad de cambiar la salud del enemigo
+ * @pre  puntero a enemigo no nulo
+ * @post settea la salud a -1 == ERROR
+ */
 void test3_enemy_set_health();
 
 #endif

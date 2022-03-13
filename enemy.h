@@ -96,13 +96,21 @@ Id enemy_get_location(Enemy* enemy);
   */
 STATUS enemy_set_location(Enemy* enemy, Id location);
 
+/**
+ * @brief consigue la salud del enemigo
+ * @author Ignacio
+ * 
+ * @param enemy puntero a Enemy
+ * @return la salud actual del enemigo
+ */
 int enemy_get_health(Enemy* enemy); /*documentar*/
 /**
- * @brief 
+ * @brief cambia la salud del enemigo
+ * @author Ignacio
  * 
- * @param enemy 
- * @param health 
- * @return STATUS 
+ * @param enemy puntero a Enemy
+ * @param health tipo int
+ * @return STATUS, OK si todo ha ido bien, ERROR de lo contrario
  */
 STATUS enemy_set_health(Enemy* enemy, int health);
 
