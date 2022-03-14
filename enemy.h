@@ -8,7 +8,7 @@ typedef struct _Enemy Enemy;
 
 /**
   * @brief crea el enemy con el id correspondiente
-  * @author Ignacio
+  * @author juan
   *
   * enemy_create crea el enemy con el id correspondiente
   *  y los demas valores de player inicializados 
@@ -19,7 +19,7 @@ Enemy* enemy_create(Id id);
 
 /**
   * @brief destruye el enemy
-  * @author Ignacio
+  * @author juan
   *
   * enemy_destroy libera la memoria asignada para enemy
   *  
@@ -30,7 +30,7 @@ STATUS enemy_destroy(Enemy* enemy);
 
 /**
   * @brief busca el id del enemigo
-  * @author Ignacio
+  * @author juan
   *
   * enemy_get_id busca el id del enemigo en cuestion
   *  
@@ -41,7 +41,7 @@ Id enemy_get_id(Enemy* enemy);
 
 /**
   * @brief asigna el nombre al enemy
-  * @author Ignacio
+  * @author juan
   *
   * enemy_set_name asigna el nombre(name) al enemigo en cuastion
   *  
@@ -53,7 +53,7 @@ STATUS enemy_set_name(Enemy* enemy, char* name);
 
 /**
   * @brief busca el nommbre del enemigo
-  * @author Ignacio
+  * @author juan
   *
   * enemy_get_name busca el nombre del enemigo
   *  
@@ -64,7 +64,7 @@ const char* enemy_get_name(Enemy* enemy);
 
 /**
   * @brief imprime los datos del enemigo
-  * @author Ignacio
+  * @author juan
   *
   * enemy_print imprime los datos del enemigo
   *  
@@ -75,7 +75,7 @@ STATUS enemy_print(Enemy* enemy);
 
 /**
   * @brief busca la localizacion del enemigo
-  * @author Ignacio
+  * @author juan
   *
   * enemy_get_location busca la localizacion del enemigo
   *  
@@ -86,7 +86,7 @@ Id enemy_get_location(Enemy* enemy);
 
 /**
   * @brief asigna una localizacion al enemigo
-  * @author Ignacio
+  * @author juan
   *
   * enemy_set_location asiga la localizacion indicada al enemigo
   *  
@@ -98,7 +98,7 @@ STATUS enemy_set_location(Enemy* enemy, Id location);
 
 /**
  * @brief consigue la salud del enemigo
- * @author Ignacio
+ * @author juan
  * 
  * @param enemy puntero a Enemy
  * @return la salud actual del enemigo
@@ -106,7 +106,7 @@ STATUS enemy_set_location(Enemy* enemy, Id location);
 int enemy_get_health(Enemy* enemy); /*documentar*/
 /**
  * @brief cambia la salud del enemigo
- * @author Ignacio
+ * @author juan
  * 
  * @param enemy puntero a Enemy
  * @param health tipo int

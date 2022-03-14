@@ -96,7 +96,7 @@ Id player_get_object_id(Player *player){
 }
 
 STATUS player_set_object_id(Player *player, Id id){
-    if(!player || id == NO_ID) return ERROR;
+    if(!player) return ERROR;
 
     player->object_id = id;
 
@@ -116,7 +116,7 @@ int player_get_health(Player *player){
 }
 
 STATUS player_set_health(Player *player, int health){
-    if(!player || health <= 0) return ERROR;
+    if(!player || health < 0) return ERROR;
 
     player->health = health;
 

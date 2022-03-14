@@ -101,7 +101,7 @@ int enemy_get_health(Enemy *enemy){
 }
 
 STATUS enemy_set_health(Enemy *enemy, int health){
-    if(!enemy || health <= 0) return ERROR;
+    if(!enemy || health < 0) return ERROR;
 
     enemy->health = health;
 

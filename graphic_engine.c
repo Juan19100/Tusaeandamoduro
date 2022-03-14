@@ -207,13 +207,6 @@ void graphic_engine_paint_game(Graphic_engine *ge, Game *game)
         }
       }
     }
-    
-    /*printf("%ld CALVOOOOOO\n",game_get_object_location(game,21));
-    for(i=0; game->object[i] != NULL; i++) {
-      print_obj = game_get_object_location(game, game_get_object(game,i));
-      sprintf(str, "  %ld:%ld, ", print_obj, 22);
-      screen_area_puts(ge->descript, str);
-    }*/
   }
 
   else{
@@ -262,7 +255,7 @@ void graphic_engine_paint_game(Graphic_engine *ge, Game *game)
 
   /* Paint in the feedback area */
   last_cmd = game_get_last_command(game);
-  sprintf(str, " %s (%s)", cmd_to_str[last_cmd - NO_CMD][CMDL], cmd_to_str[last_cmd - NO_CMD][CMDS]);
+  sprintf(str, " %s (%s): OK", cmd_to_str[last_cmd - NO_CMD][CMDL], cmd_to_str[last_cmd - NO_CMD][CMDS]);
   screen_area_puts(ge->feedback, str);
 
   /* Dump to the terminal */
