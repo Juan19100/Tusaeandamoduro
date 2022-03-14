@@ -56,7 +56,6 @@ Space* space_create(Id id) {
   }
 
   return newSpace;
-/*jasdjnñ*/
 }
 
 /** space_destroy frees the previous memory allocation 
