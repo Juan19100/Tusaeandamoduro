@@ -432,6 +432,7 @@ STATUS game_command_take(Game *game)
   player_set_object_id(game->player, object_id);
 
   space_set_object(game_get_space(game, object_location), NO_ID);
+  space_del_object(game_get_space(game, object_location), object_id);
   
   return OK;
 }
@@ -575,5 +576,6 @@ int game_get_num_object(Game* game){
 
 Id game_get_object(Game* game, int position){
   if(!game) return NO_ID;
+
   return object_get_id(game->object[position]);
 }

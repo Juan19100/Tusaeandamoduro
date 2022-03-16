@@ -138,6 +138,6 @@ void test3_set_get_object() {
   Set *s;
   s = set_create();
   set_add(s,4);
-  PRINT_TEST_RESULT(set_get_object(s, 5) == NO_ID);
+  PRINT_TEST_RESULT(set_get_object(s, 5) != 4);
   set_destroy(s);
 }

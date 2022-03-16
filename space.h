@@ -191,7 +191,25 @@ char *space_get_gdesc(Space *space, int position);
  */
 STATUS space_set_gdesc(Space *space, int position, char *gdesc);
 
+/**
+ * @brief comprueba si un espacio tiene un objeto con un id
+ * @author Ignacio
+ * 
+ * @param space puntero a space
+ * @param id id del objeto a buscar
+ * @return TRUE si está en el espacio, FALSE en caso contrario
+ */
 BOOL space_has_object(Space *space, Id id);
+
+/**
+ * @brief elimina el objeto de un espacio
+ * @author Ignacio
+ * 
+ * @param space puntero a space
+ * @param value Id del objeto a eliminar
+ * @return OK si se ha eiminado, ERROR en caso contrario
+ */
+STATUS space_del_object(Space* space, Id value);
 
 
 #endif

@@ -15,7 +15,7 @@ runv:
 hormiguero: command.o game_loop.o game.o graphic_engine.o set.o space.o game_reader.o player.o object.o enemy.o
 	$(CC) -o$@ $^ $(CLIBS)
 
-space_test: space_test.c space.c 
+space_test: space_test.o space.o set.o
 	$(CC) -o$@ $^ $(CLIBS)
 	
 set_test : set_test.o set.o
@@ -62,6 +62,7 @@ set_test.o: set_test.c set.h types.h set_test.h test.h
 
 enemy_test.o: enemy_test.c types.h enemy_test.h set.h enemy.h
 	$(CC) $(CFLAGS) -c $<
+	
 #LIMPIEZA
 clean:
 	rm *.o 

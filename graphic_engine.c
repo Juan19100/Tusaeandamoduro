@@ -76,9 +76,9 @@ void graphic_engine_destroy(Graphic_engine *ge)
 void graphic_engine_paint_game(Graphic_engine *ge, Game *game)
 {
   int i, j, k;
-  Id id_act = NO_ID, id_back = NO_ID, id_next = NO_ID, id_right = NO_ID, id_left = NO_ID, obj[MAX_SET];
+  Id enemy_id = NO_ID, id_act = NO_ID, id_back = NO_ID, id_next = NO_ID, id_right = NO_ID, id_left = NO_ID, obj[MAX_SET] = {0,0,0,0,0};
   Space *space_act = NULL;
-  char str[255];
+  char str[255], enemy = ' ';
   T_Command last_cmd = UNKNOWN;
   extern char *cmd_to_str[N_CMD][N_CMDT];
 
@@ -91,6 +91,7 @@ void graphic_engine_paint_game(Graphic_engine *ge, Game *game)
     id_next = space_get_south(space_act);
     id_right = space_get_east(space_act);
     id_left = space_get_west(space_act);
+    enemy_id = enemy_get_location(game->enemy);
 
     k = graphic_engine_find_space(game, id_back);
 
@@ -122,10 +123,13 @@ void graphic_engine_paint_game(Graphic_engine *ge, Game *game)
 
     if (id_act != NO_ID)
     {
+      if(enemy_id == id_act){
+        enemy = '@';
+      }
       sprintf(str, "  +-----------+");
       screen_area_puts(ge->map, str);
       /*\\(\")/ CODIFICACION HORMIGA */
-      sprintf(str, "  | gpp0^  %3d|", (int)id_act);
+      sprintf(str, "  | %c gpp0^ %3d|", enemy, (int)id_act);
       screen_area_puts(ge->map, str);
       for(i=0; i < MAX_HEIGHT ;i++){
         sprintf(str, "  | %s |", space_get_gdesc(game->spaces[k], i));
@@ -165,11 +169,16 @@ void graphic_engine_paint_game(Graphic_engine *ge, Game *game)
 
     if (id_next != NO_ID)
     {
+      
+      if(enemy_id == id_next){
+        enemy = '@';
+      }
+
       sprintf(str, "        v");
       screen_area_puts(ge->map, str);
       sprintf(str, "  +-----------+");
       screen_area_puts(ge->map, str);
-      sprintf(str, "  |        %3d|", (int)id_next);
+      sprintf(str, "  | %c      %3d|", enemy, (int)id_next);
       screen_area_puts(ge->map, str);
       for(i=0; i < MAX_HEIGHT ;i++){
         sprintf(str, "  | %s |", space_get_gdesc(game->spaces[k], i));

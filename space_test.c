@@ -189,21 +189,21 @@ void test2_space_get_name() {
 void test1_space_get_object() {
   Space *s;
   s = space_create(1);
-  PRINT_TEST_RESULT(space_get_object(s) == FALSE);
+  space_set_object(s,11);
+  PRINT_TEST_RESULT(space_get_object(s,0) != NO_ID);
   space_destroy(s);
 }
 
 void test2_space_get_object() {
   Space *s;
   s = space_create(1);
-  space_set_object(s,TRUE);
-  PRINT_TEST_RESULT(space_get_object(s) == TRUE);
+  PRINT_TEST_RESULT(space_get_object(s,0) == NO_ID);
   space_destroy(s);  
 }
 
 void test3_space_get_object() {
   Space *s = NULL;
-  PRINT_TEST_RESULT(space_get_object(s) == FALSE);
+  PRINT_TEST_RESULT(space_get_object(s,0) == FALSE);
 }
 
 void test1_space_get_north() {

@@ -51,7 +51,7 @@ Space* space_create(Id id) {
   newSpace->east = NO_ID;
   newSpace->west = NO_ID;
   newSpace->objects = set_create();
-  for(i=0;i<MAX_HEIGHT;i++){
+  for(i = 0; i < MAX_HEIGHT ; i++){
     newSpace->gdesc[i][0] = '\0';
   }
 
@@ -180,6 +180,12 @@ STATUS space_set_object(Space* space, Id value) {
   }
   
   return set_add(space->objects, value);
+}
+
+STATUS space_del_object(Space* space, Id value){
+  if(!space) return ERROR;
+
+  return set_del(space->objects, value);
 }
 /** It gets the space object with an id
   */
