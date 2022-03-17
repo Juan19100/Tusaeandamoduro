@@ -81,7 +81,7 @@ Id enemy_get_location(Enemy* enemy){
 }
 
 STATUS enemy_set_location(Enemy* enemy, Id location){
-    if(!enemy || location == NO_ID) return ERROR;
+    if(!enemy) return ERROR;
 
     enemy->location = location;
     
@@ -102,7 +102,10 @@ int enemy_get_health(Enemy *enemy){
 
 STATUS enemy_set_health(Enemy *enemy, int health){
     if(!enemy || health < 0) return ERROR;
-
+    
+    if(health == 0){
+        enemy_set_location(enemy, NO_ID);
+    }
     enemy->health = health;
 
     return OK;

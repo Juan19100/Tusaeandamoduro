@@ -116,7 +116,7 @@ int player_get_health(Player *player){
 }
 
 STATUS player_set_health(Player *player, int health){
-    if(!player || health < 0) return ERROR;
+    if(!player) return ERROR;
 
     player->health = health;
 

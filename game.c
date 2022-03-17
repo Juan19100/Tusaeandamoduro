@@ -145,7 +145,6 @@ STATUS game_create(Game *game)
 
 STATUS game_create_from_file(Game *game, char *filename)
 {
-  int i;
 
   if (game_create(game) == ERROR)
     return ERROR;
@@ -155,9 +154,7 @@ STATUS game_create_from_file(Game *game, char *filename)
 
   /* The player and the object are located in the first space */
   game_set_player_location(game, game_get_space_id_at(game, 0));
-  for(i=0; i < MAX_SET; i++){
-    game_set_object_location(game, game_get_space_id_at(game, 0), game_get_object_location(game,game_get_space_id_at(game, 0)));
-  }
+
   game_set_enemy_location(game, 13);
 
   return OK;
@@ -232,7 +229,7 @@ STATUS game_set_object_location(Game *game, Id space_id, Id object_id)
   }
 
   location = game_get_space(game, space_id);
-  space_set_object(location, object_id);
+  space_add_object(location, object_id);
 
   return OK;
 }
@@ -338,9 +335,7 @@ void game_print_data(Game *game)
 
 BOOL game_is_over(Game *game)
 {
-  if(player_get_health(game->player)==0){
-    game_command_exit(game);
-  }
+  if(player_get_health(game->player) == 0) return TRUE;
   return FALSE;
 }
 
@@ -431,7 +426,7 @@ STATUS game_command_take(Game *game)
 
   player_set_object_id(game->player, object_id);
 
-  space_set_object(game_get_space(game, object_location), NO_ID);
+  /*space_set_object(game_get_space(game, object_location), NO_ID);*/
   space_del_object(game_get_space(game, object_location), object_id);
   
   return OK;
@@ -449,7 +444,7 @@ STATUS game_command_drop(Game *game)
   }
   space_id = player_get_location(game->player);
 
-  if(space_set_object(game_get_space(game, space_id), object_id) == ERROR) return ERROR;
+  if(space_add_object(game_get_space(game, space_id), object_id) == ERROR) return ERROR;
 
   if(player_set_object_id(game->player, NO_ID) == ERROR) return ERROR;
 
@@ -537,7 +532,8 @@ STATUS game_command_attack(Game *game)
   if(x <= 4){
     player_set_health(game->player, (player_get_health(game->player)-1));
     if(player_get_health(game->player)==0){
-        game_command_exit(game);
+        /*game_command_exit(game);*/
+        game_is_over(game);
         return OK;
     }
     return OK;

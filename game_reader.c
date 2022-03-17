@@ -197,7 +197,7 @@ STATUS game_load_objects(Game *game, char *filename)
       if (object != NULL)
       {
         object_set_name(object, name);
-        space_set_object(game_get_space(game,space_id), id);
+        space_add_object(game_get_space(game,space_id), id);
         game_reader_add_object(game, object);
       }
     }

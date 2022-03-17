@@ -32,7 +32,7 @@ STATUS set_destroy(Set* set){
 }
 
 STATUS set_add(Set* set, Id id){
-    if(!set || id < 0 || set->n_ids >= MAX_SET) return ERROR;
+    if(!set || id < 0 || set->n_ids > MAX_SET) return ERROR;
 
     set->n_ids++;
     set->id[set->n_ids-1] = id;

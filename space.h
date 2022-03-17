@@ -150,7 +150,7 @@ Id space_get_west(Space* space);
   * @param value a boolean, specifying if in the space there is an object (TRUE) or not (FALSE)
   * @return OK, if everything goes well or ERROR if there was some mistake 
   */
-STATUS space_set_object(Space* space, Id value);
+STATUS space_add_object(Space* space, Id value);
 
 /**
   * @brief It gets whether the space has an object or not
