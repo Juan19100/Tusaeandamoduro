@@ -63,6 +63,9 @@ set_test.o: set_test.c set.h types.h set_test.h test.h
 enemy_test.o: enemy_test.c types.h enemy_test.h set.h enemy.h
 	$(CC) $(CFLAGS) -c $<
 	
+inventory.o: inventory.c inventory.h set.h types.h
+	$(CC) $(CFLAGS) -c $<
+	
 #LIMPIEZA
 clean:
 	rm *.o 
