@@ -30,7 +30,7 @@ struct _Graphic_engine
 int graphic_engine_find_space(Game *game, Id id){
   int i;
     for(i=0; i < MAX_SPACES; i++){
-      if(space_get_id(game->spaces[i]) == id){
+      if(game_get_space_id_at(game, i) == id){
         return i;
       }
     }
@@ -91,7 +91,7 @@ void graphic_engine_paint_game(Graphic_engine *ge, Game *game)
     id_next = space_get_south(space_act);
     id_right = space_get_east(space_act);
     id_left = space_get_west(space_act);
-    enemy_id = enemy_get_location(game->enemy);
+    enemy_id = enemy_get_location(game_get_enemy(game));
 
     k = graphic_engine_find_space(game, id_back);
 
@@ -100,7 +100,7 @@ void graphic_engine_paint_game(Graphic_engine *ge, Game *game)
       sprintf(str, "  |        %3d|", (int)id_back);
       screen_area_puts(ge->map, str);
       for(i=0; i < MAX_HEIGHT ;i++){
-        sprintf(str, "  | %s |", space_get_gdesc(game->spaces[k], i));
+        sprintf(str, "  | %s |", space_get_gdesc(game_get_space_by_position(game,k), i));
         screen_area_puts(ge->map, str);
       }
       
@@ -122,9 +122,6 @@ void graphic_engine_paint_game(Graphic_engine *ge, Game *game)
       sprintf(str_aux,"|");
       strcat(str,str_aux);
       screen_area_puts(ge->map,str);
-     
-      /*sprintf(str, "  |%d %d %d %d %d|", (int)obj[0], (int)obj[1],(int)obj[2],(int)obj[3],(int)obj[4]);
-      screen_area_puts(ge->map, str);*/
       sprintf(str, "  +-----------+");
       screen_area_puts(ge->map, str);
       sprintf(str, "        ^");
@@ -144,7 +141,7 @@ void graphic_engine_paint_game(Graphic_engine *ge, Game *game)
       sprintf(str, "  |%c gpp0^ %3d|", enemy, (int)id_act);
       screen_area_puts(ge->map, str);
       for(i=0; i < MAX_HEIGHT ;i++){
-        sprintf(str, "  | %s |", space_get_gdesc(game->spaces[k], i));
+        sprintf(str, "  | %s |", space_get_gdesc(game_get_space_by_position(game,k), i));
         screen_area_puts(ge->map, str);
       }
       width_aux = strlen(str);
@@ -224,40 +221,6 @@ void graphic_engine_paint_game(Graphic_engine *ge, Game *game)
         strcat(str,str_aux);
         screen_area_puts(ge->map,str);
       }
-
-      /*sprintf(str,"  |");
-      for(i=0; i < MAX_SET ; i++){
-        if((obj_id = space_get_object(game_get_space(game, id_act), i)) != NO_ID){
-          sprintf(str_aux, " %ld", obj_id);
-          strcat(str, str_aux);
-        }
-      }
-      i=strlen(str);
-      while( i< (width_aux-1)){
-        sprintf(str_aux, " ");
-        strcat(str, str_aux);
-        i++;
-      }
-      sprintf(str_aux,"|");
-      strcat(str,str_aux);
-      screen_area_puts(ge->map,str);*/
-
-      /*if(id_right != NO_ID && id_left == NO_ID){
-        sprintf(str, "  |%d %d %d %d  %d |>>", (int)obj[0], (int)obj[1],(int)obj[2],(int)obj[3],(int)obj[4]);
-        screen_area_puts(ge->map, str);
-      }
-      else if(id_left != NO_ID && id_right == NO_ID){
-        sprintf(str, "<<|%d %d %d %d  %d |", (int)obj[0], (int)obj[1],(int)obj[2],(int)obj[3],(int)obj[4]);
-        screen_area_puts(ge->map, str);
-      }
-      else if(id_right != NO_ID && id_left != NO_ID){
-        sprintf(str, "<<|%d  %d  %d %d %d|>>", (int)obj[0], (int)obj[1],(int)obj[2],(int)obj[3],(int)obj[4]);
-        screen_area_puts(ge->map, str);
-      }
-      else{
-        sprintf(str, "  |%d %d %d %d  %d|", (int)obj[0], (int)obj[1],(int)obj[2],(int)obj[3],(int)obj[4]);
-        screen_area_puts(ge->map, str);
-      }*/
       sprintf(str, "  +-----------+");
       screen_area_puts(ge->map, str);
     }
@@ -280,7 +243,7 @@ void graphic_engine_paint_game(Graphic_engine *ge, Game *game)
       sprintf(str, "  | %c      %3d|", enemy, (int)id_next);
       screen_area_puts(ge->map, str);
       for(i=0; i < MAX_HEIGHT ;i++){
-        sprintf(str, "  | %s |", space_get_gdesc(game->spaces[k], i));
+        sprintf(str, "  | %s |", space_get_gdesc(game_get_space_by_position(game,k), i));
         screen_area_puts(ge->map, str);
       }
       width_aux = strlen(str);
@@ -301,8 +264,6 @@ void graphic_engine_paint_game(Graphic_engine *ge, Game *game)
       strcat(str,str_aux);
       screen_area_puts(ge->map,str);
      
-      /*sprintf(str, "  |%d %d %d %d %d|", (int)obj[0], (int)obj[1],(int)obj[2],(int)obj[3],(int)obj[4]);
-      screen_area_puts(ge->map, str);*/
     }
   }
 
@@ -312,12 +273,12 @@ void graphic_engine_paint_game(Graphic_engine *ge, Game *game)
   sprintf(str, "  Objects location : ");
   screen_area_puts(ge->descript, str);
   if(game_get_num_object(game) != 0){
-    for(i=0; i < MAX_OBJECTS && game->object[i] != NULL; i++){
-      for(j=0; j < MAX_SPACES && game->spaces[j] != NULL; j++){
-        if(space_has_object(game->spaces[j], game_get_object(game,i))){
+    for(i=0; i < MAX_OBJECTS && game_get_object_by_position(game, i) != NULL; i++){
+      for(j=0; j < MAX_SPACES && game_get_space_by_position(game,j) != NULL; j++){
+        if(space_has_object(game_get_space_by_position(game,j), game_get_object(game,i))){
           for(k=0; k < MAX_SET; k++){
-            if(space_get_object(game->spaces[j],k) == game_get_object(game,i)){
-              sprintf(str, "  %ld:%ld, ", space_get_object(game->spaces[j], k), space_get_id(game->spaces[j]));
+            if(space_get_object(game_get_space_by_position(game,j),k) == game_get_object(game,i)){
+              sprintf(str, "  %ld:%ld, ", space_get_object(game_get_space_by_position(game,j), k), game_get_space_id_at(game,j));
               screen_area_puts(ge->descript, str);
             }
           }
@@ -334,9 +295,9 @@ void graphic_engine_paint_game(Graphic_engine *ge, Game *game)
   sprintf(str, " ");
   screen_area_puts(ge->descript, str);
 
-  sprintf(str, "  Player location: %ld", player_get_location(game->player));
+  sprintf(str, "  Player location: %ld", player_get_location(game_get_player(game)));
   screen_area_puts(ge->descript, str);
-  if (player_get_object_id(game->player) == NO_ID)
+  if (player_get_object_id(game_get_player(game)) == NO_ID)
   {
     sprintf(str, "  Player object: vacio");
     screen_area_puts(ge->descript, str);
@@ -344,18 +305,18 @@ void graphic_engine_paint_game(Graphic_engine *ge, Game *game)
 
   else
   {
-    sprintf(str, "  Player object: %ld", player_get_object_id(game->player));
+    sprintf(str, "  Player object: %ld", player_get_object_id(game_get_player(game)));
     screen_area_puts(ge->descript, str);
   }
-  sprintf(str, "  Player health: %d", player_get_health(game->player));
+  sprintf(str, "  Player health: %d", player_get_health(game_get_player(game)));
   screen_area_puts(ge->descript, str);
 
   sprintf(str, " ");
   screen_area_puts(ge->descript, str);
 
-  sprintf(str, "  Enemy location: %ld", enemy_get_location(game->enemy));
+  sprintf(str, "  Enemy location: %ld", enemy_get_location(game_get_enemy(game)));
   screen_area_puts(ge->descript, str);
-  sprintf(str, "  Enemy health: %d", enemy_get_health(game->enemy));
+  sprintf(str, "  Enemy health: %d", enemy_get_health(game_get_enemy(game)));
   screen_area_puts(ge->descript, str);
 
   

@@ -42,26 +42,13 @@ STATUS game_reader_add_object(Game *game, Object *object);
 
 STATUS game_reader_add_space(Game *game, Space *space)
 {
-  int i = 0;
 
   if (space == NULL)
   {
     return ERROR;
   }
 
-  while (i < MAX_SPACES && game->spaces[i] != NULL)
-  {
-    i++;
-  }
-
-  if (i >= MAX_SPACES)
-  {
-    return ERROR;
-  }
-
-  game->spaces[i] = space;
-
-  return OK;
+  return game_add_space(game, space);
 }
 
 STATUS game_load_spaces(Game *game, char *filename)
@@ -137,26 +124,12 @@ STATUS game_load_spaces(Game *game, char *filename)
 
 STATUS game_reader_add_object(Game *game, Object *object)
 {
-  int i=0;
   if (object == NULL || game == NULL)
   {
     return ERROR;
   }
 
-  while (i < MAX_OBJECTS && game->object[i] != NULL)
-  {
-    i++;
-  }
-
-  if (i >= MAX_OBJECTS)
-  {
-    return ERROR;
-  }
-  
-  game->object[i] = object;
-
-  return OK; 
-
+  return game_add_object(game, object_get_id(object)); 
 }
 
 STATUS game_load_objects(Game *game, char *filename)
@@ -196,6 +169,7 @@ STATUS game_load_objects(Game *game, char *filename)
       object = object_create(id);
       if (object != NULL)
       {
+        printf("\nMARIA DEL CARMEN RUEGA POR NOSOTROS PECADORES AMEN\n");
         object_set_name(object, name);
         space_add_object(game_get_space(game,space_id), id);
         game_reader_add_object(game, object);

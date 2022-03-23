@@ -15,7 +15,7 @@
 #include "set_test.h"
 #include "test.h"
 
-#define MAX_TESTS 11
+#define MAX_TESTS 20
 
 /** 
  * @brief Main function for SET unit tests. 

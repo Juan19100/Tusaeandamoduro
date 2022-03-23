@@ -81,7 +81,7 @@ Id enemy_get_location(Enemy* enemy){
 }
 
 STATUS enemy_set_location(Enemy* enemy, Id location){
-    if(!enemy) return ERROR;
+    if(!enemy || location < 0) return ERROR;
 
     enemy->location = location;
     

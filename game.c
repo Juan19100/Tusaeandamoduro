@@ -23,6 +23,14 @@
 
 #define MAX_RAND 9
 
+struct _Game{
+  Player *player; /*!<Puntero a la estructura player*/
+  Enemy *enemy; /*!<Puntero a la estructura enemy*/
+  Object *object[MAX_OBJECTS]; /*!<Puntero a la estructura object*/
+  Space *spaces[MAX_SPACES]; /*!<Puntero a array de la estructura spaces*/
+  T_Command last_cmd; /*!<Variable tipo T_Command*/
+};
+
 /**
    Private functions
 */
@@ -36,14 +44,6 @@ STATUS game_set_enemy_location(Game *game, Id id)
 
   return enemy_set_location(game->enemy, id);
 }
-/**
- * @brief devuelve el id del espacio con id == position
- * 
- * @param game puntero a game
- * @param position tipo int
- * @return Id del espacio
- */
-Id game_get_space_id_at(Game *game, int position);
 
 /**
  * @brief settea la localización del jugador
@@ -122,9 +122,13 @@ STATUS game_command_attack(Game *game);
    Game interface implementation
 */
 
-STATUS game_create(Game *game)
+Game* game_create()
 {
+  Game *game = NULL;
   int i;
+
+  game = (Game*) malloc(sizeof(Game));
+  if(!game) return NULL;
 
   for (i = 0; i < MAX_SPACES; i++)
   {
@@ -140,7 +144,7 @@ STATUS game_create(Game *game)
 
   game->last_cmd = NO_CMD;
 
-  return OK;
+  return game;
 }
 
 STATUS game_create_from_file(Game *game, char *filename)
@@ -168,11 +172,16 @@ STATUS game_destroy(Game *game)
   {
     space_destroy(game->spaces[i]);
   }
+
   player_destroy(game->player);
   enemy_destroy(game->enemy);
-  for(i=0; i < MAX_OBJECTS && game->object[i] != NULL; i++){
+  
+  for(i=0; i < MAX_OBJECTS &&  game->object[i] != NULL; i++){
     object_destroy(game->object[i]);
   }
+
+  free(game);
+  game = NULL;
 
   return OK;
 }
@@ -546,10 +555,11 @@ STATUS game_command_attack(Game *game)
 }
 
 STATUS game_add_object(Game* game, Id id){
-  int i;
+  int i = 0;
   if(!game) return ERROR;
 
   while(game->object[i] != NULL){
+    printf("\nHOLADSLIJFKLSAFHKSDBLDH\n");
     i++;
   }
 
@@ -574,4 +584,42 @@ Id game_get_object(Game* game, int position){
   if(!game) return NO_ID;
 
   return object_get_id(game->object[position]);
+}
+
+Player *game_get_player(Game *game){
+  if(!game)return NULL;
+
+  return (game->player);
+}
+
+Enemy * game_get_enemy(Game *game){
+  if(!game) return NULL;
+  
+  return game->enemy;
+}
+
+STATUS game_add_space(Game *game, Space *space){
+  int i = 0;
+  if(!game || !space) return ERROR;
+
+  while(game->spaces[i] != NULL)
+    i++;
+
+  if(i >= MAX_SPACES) return ERROR;
+
+  game->spaces[i] = space;
+  
+  return OK;
+}
+
+Space *game_get_space_by_position(Game *game, int position){
+  if(!game || position < 0 || position >= MAX_SPACES) return NULL;
+
+  return game->spaces[position];
+}
+
+Object *game_get_object_by_position(Game *game, int position){
+  if(!game || position < 0 || position >= MAX_OBJECTS) return NULL;
+
+  return game->object[position];
 }

@@ -175,4 +175,3 @@ void test3_enemy_set_health(){
   PRINT_TEST_RESULT(enemy_set_health(e, -1)==ERROR);
   enemy_destroy(e);
 }
-

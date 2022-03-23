@@ -20,14 +20,7 @@
 #include "set.h"
 #include "enemy.h"
 
-typedef struct _Game
-{
-  Player *player; /*!<Puntero a la estructura player*/
-  Enemy *enemy; /*!<Puntero a la estructura enemy*/
-  Object *object[MAX_OBJECTS]; /*!<Puntero a la estructura object*/
-  Space *spaces[MAX_SPACES]; /*!<Puntero a array de la estructura spaces*/
-  T_Command last_cmd; /*!<Variable tipo T_Command*/
-} Game;
+typedef struct _Game Game;
 
 
 /**
@@ -35,10 +28,9 @@ typedef struct _Game
   * @author Ignacio
   *
   * game_create guarda memoria para un nuevo juego e inicializa sus parametros
-  * @param game puntero a game
-  * @return OK si todo ha ido bien, o ERROR si ha ocurrido algun error
+  * @return devuelve puntero a game ya creado, NULL en caso de error
   */
-STATUS game_create(Game *game);
+Game* game_create();
 
 /**
   * @brief crea un nuevo juego cargando los datos de un fichero
@@ -148,7 +140,7 @@ T_Command game_get_last_command(Game *game);
  * 
  * @param game puntero a game
  * @param id del objeto a añadir
- * @return STATUS si se ha añadido, ERROR en caso contrario
+ * @return OK si se ha añadido, ERROR en caso contrario
  */
 STATUS game_add_object(Game* game, Id id);
 
@@ -170,5 +162,63 @@ int game_get_num_object(Game* game);
  * @return Id del objeto, NO_ID en caso de error 
  */
 Id game_get_object(Game* game, int position);
+
+/**
+ * @brief devuelve la posicion del player
+ * @author Juan
+ * 
+ * @param game puntero a game
+ * @return puntero a player 
+ */
+Player* game_get_player(Game* game);
+
+/**
+ * @brief devuelve el enemy
+ * @author Juan
+ * 
+ * @param game puntero a game
+ * @return enemy si todo ha ido bien, NULL en caso de error 
+ */
+Enemy* game_get_enemy(Game* game);
+
+/**
+ * @brief devuelve el id del espacio con id == position
+ * 
+ * @param game puntero a game
+ * @param position tipo int
+ * @return Id del espacio
+ */
+Id game_get_space_id_at(Game *game, int position);
+
+/**
+ * @brief añade un espacio al juego
+ * @author Ignacio
+ * 
+ * @param game puntero a game
+ * @param space puntero a space
+ * @return OK si se ha añadido, ERROR en caso contrario
+ */
+STATUS game_add_space(Game *game, Space *space);
+
+/**
+ * @brief devuelve el espacio dada una posicion
+ * @author Ignacio
+ * 
+ * @param game puntero a game
+ * @param position posición del espacio
+ * @return el espacio buscado
+ */
+Space *game_get_space_by_position(Game *game, int position);
+
+/**
+ * @brief devuelve el objeto dada una posición
+ * @author Juan
+ * 
+ * @param game puntero a game
+ * @param position posicion buscada
+ * @return el objeto, y NULL en caso de error 
+ */
+Object *game_get_object_by_position(Game *game, int position);
+
 
 #endif

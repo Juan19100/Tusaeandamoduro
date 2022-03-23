@@ -23,6 +23,15 @@ set_test : set_test.o set.o
 
 enemy_test : enemy_test.o enemy.o set.o
 	$(CC) -o$@ $^ $(CLIBS)
+
+player_test: player_test.o player.o set.o
+	$(CC) -o$@ $^ $(CLIBS)
+
+inventory_test: inventory_test.o inventory.o set.o
+	$(CC) -o$@ $^ $(CLIBS)
+
+object_test: object_test.o object.o
+	$(CC) -o$@ $^ $(CLIBS)
 #LOS ARCHIVOS .O
 game_reader.o: game_reader.c game_reader.h game.h command.h space.h types.h player.h object.h
 	$(CC) $(CFLAGS) -c $< 
@@ -57,13 +66,22 @@ space_test.o: space_test.c space.h types.h space_test.h test.h
 set.o: set.c set.h types.h
 	$(CC) $(CFLAGS) -c $<
 
+inventory.o: inventory.c inventory.h set.h types.h
+	$(CC) $(CFLAGS) -c $<
+
 set_test.o: set_test.c set.h types.h set_test.h test.h
 	$(CC) $(CFLAGS) -c $<
 
 enemy_test.o: enemy_test.c types.h enemy_test.h set.h enemy.h
 	$(CC) $(CFLAGS) -c $<
 	
-inventory.o: inventory.c inventory.h set.h types.h
+inventory_test.o: inventory_test.c types.h inventory_test.h inventory.h set.h test.h
+	$(CC) $(CFLAGS) -c $<
+
+player_test.o: player_test.c types.h player_test.h set.h player.h test.h
+	$(CC) $(CFLAGS) -c $<
+
+object_test.o: object_test.c object.h types.h object_test.h set.h test.h
 	$(CC) $(CFLAGS) -c $<
 	
 #LIMPIEZA
