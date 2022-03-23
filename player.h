@@ -97,29 +97,6 @@ Id player_get_location(Player* player);
 STATUS player_set_location(Player *player, Id location);
 
 /**
-  * @brief busca el id del objeto que tiene el jugador
-  * @author Ignacio
-  *
-  * player_get_object_id busca el id del objeto que tiene el jugador
-  *  
-  * @param player puntero a player
-  * @return el id del objeto del jugador
-  */
-Id player_get_object_id(Player *player);
-
-/**
-  * @brief asigna un id al objeto del jugador
-  * @author Ignacio
-  *
-  * player_set_object_id asigna el id al objeto del jugador
-  *  
-  * @param player puntero a player 
-  * @param id del objeto
-  * @return OK si todo ha ido bien, de lo contrario ERROR
-  */
-STATUS player_set_object_id(Player *player, Id id);
-
-/**
  * @brief obtiene la vida de player
  * @author Ignacio
  * 
@@ -137,5 +114,48 @@ int player_get_health(Player* player);
  * @return STATUS si todo ha ido bien, ERROR en caso contrario
  */
 STATUS player_set_health(Player* player, int health);
+
+/**
+ * @brief añade un objeto al player
+ * @author Ignacio
+ * 
+ * @param player puntero a player
+ * @param object_id id del objeto a añadir
+ * @return OK si todo va bien, ERROR en caso contrario
+ */
+STATUS player_add_object(Player *player, Id object_id);
+
+/**
+ * @brief elimina un objeto al player
+ * @author Juan
+ * 
+ * @param player puntero a player
+ * @param object_id id del objeto a eliminar
+ * @return OK si todo va bien, ERROR en caso contrario
+ */
+STATUS player_del_object(Player *player, Id object_id);
+
+/**
+ * @brief devuelve un objeto dada la posicion
+ * @author Ignacio
+ * 
+ * @param player puntero a player 
+ * @param position posicion a buscar
+ * @return Id del objeto correspondiente
+ */
+Id player_get_object_by_position(Player *player, int position);
+
+/**
+ * @brief devuelve el número de objetos que tiene el jugador
+ * @author Ignacio
+ * 
+ * @param player puntero a player
+ * @return número de objetos, -1 en caso de error
+ */
+int player_get_num_objects(Player *player);
+
+
+BOOL player_has_object(Player *player, Id object_id);
+
 
 #endif

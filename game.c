@@ -175,7 +175,7 @@ STATUS game_destroy(Game *game)
 
   player_destroy(game->player);
   enemy_destroy(game->enemy);
-  
+
   for(i=0; i < MAX_OBJECTS &&  game->object[i] != NULL; i++){
     object_destroy(game->object[i]);
   }
@@ -425,7 +425,7 @@ STATUS game_command_take(Game *game)
 
   if(!game) return ERROR;
 
-  scanf(" 0%ld", &object_id);
+  scanf(" O%ld", &object_id);
   if (object_id == NO_ID) return ERROR;
   
   object_location = game_get_object_location(game, object_id);
@@ -433,7 +433,7 @@ STATUS game_command_take(Game *game)
   
   if(object_location != player_get_location(game->player)) return ERROR;/*deben estar en la misma casilla*/
 
-  player_set_object_id(game->player, object_id);
+  player_add_object(game->player, object_id);
 
   /*space_set_object(game_get_space(game, object_location), NO_ID);*/
   space_del_object(game_get_space(game, object_location), object_id);
@@ -446,8 +446,10 @@ STATUS game_command_drop(Game *game)
   Id object_id, space_id;
 
   if(!game) return ERROR;
+
+  scanf(" O%ld", &object_id);
   
-  object_id = player_get_object_id(game->player);
+  if(player_has_object(game->player, object_id) == FALSE) return ERROR;
   if(object_id == NO_ID) {
     return ERROR;
   }
@@ -455,7 +457,7 @@ STATUS game_command_drop(Game *game)
 
   if(space_add_object(game_get_space(game, space_id), object_id) == ERROR) return ERROR;
 
-  if(player_set_object_id(game->player, NO_ID) == ERROR) return ERROR;
+  if(player_del_object(game->player, object_id) == ERROR) return ERROR;
 
   return OK;
 }

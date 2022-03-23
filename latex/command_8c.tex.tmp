@@ -1,0 +1,69 @@
+\hypertarget{command_8c}{}\doxysection{command.\+c File Reference}
+\label{command_8c}\index{command.c@{command.c}}
+
+
+It implements the command interpreter.  
+
+
+{\ttfamily \#include $<$stdio.\+h$>$}\newline
+{\ttfamily \#include $<$strings.\+h$>$}\newline
+{\ttfamily \#include \char`\"{}command.\+h\char`\"{}}\newline
+Include dependency graph for command.\+c\+:
+% FIG 0
+\doxysubsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{command_8c_a2b1bd24d2eddf8081d8c541e4cc4fd4b}\label{command_8c_a2b1bd24d2eddf8081d8c541e4cc4fd4b}} 
+\#define {\bfseries C\+M\+D\+\_\+\+L\+E\+N\+G\+HT}~30
+\end{DoxyCompactItemize}
+\doxysubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{command_8c_a7ad92506157db30fe6e1941d62752291}\label{command_8c_a7ad92506157db30fe6e1941d62752291}} 
+T\+\_\+\+Command {\bfseries command\+\_\+get\+\_\+user\+\_\+input} ()
+\end{DoxyCompactItemize}
+\doxysubsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+char $\ast$ {\bfseries cmd\+\_\+to\+\_\+str} \mbox{[}N\+\_\+\+C\+MD\mbox{]}\mbox{[}N\+\_\+\+C\+M\+DT\mbox{]}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+It implements the command interpreter. 
+
+\begin{DoxyAuthor}{Author}
+Profesores P\+P\+R\+OG 
+\end{DoxyAuthor}
+\begin{DoxyVersion}{Version}
+2.\+0 
+\end{DoxyVersion}
+\begin{DoxyDate}{Date}
+29-\/11-\/2021 
+\end{DoxyDate}
+\begin{DoxyCopyright}{Copyright}
+G\+NU Public License 
+\end{DoxyCopyright}
+
+
+\doxysubsection{Variable Documentation}
+\mbox{\Hypertarget{command_8c_a3574ce85761f52cf9b70d061831533ee}\label{command_8c_a3574ce85761f52cf9b70d061831533ee}} 
+\index{command.c@{command.c}!cmd\_to\_str@{cmd\_to\_str}}
+\index{cmd\_to\_str@{cmd\_to\_str}!command.c@{command.c}}
+\doxysubsubsection{\texorpdfstring{cmd\_to\_str}{cmd\_to\_str}}
+{\footnotesize\ttfamily char$\ast$ cmd\+\_\+to\+\_\+str\mbox{[}N\+\_\+\+C\+MD\mbox{]}\mbox{[}N\+\_\+\+C\+M\+DT\mbox{]}}
+
+{\bfseries Initial value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{= \{\{\textcolor{stringliteral}{""}, \textcolor{stringliteral}{"No command"}\},}
+\DoxyCodeLine{            \{\textcolor{stringliteral}{""}, \textcolor{stringliteral}{"Unknown"}\},}
+\DoxyCodeLine{            \{\textcolor{stringliteral}{"e"}, \textcolor{stringliteral}{"Exit"}\},}
+\DoxyCodeLine{            \{\textcolor{stringliteral}{"n"}, \textcolor{stringliteral}{"Next"}\},}
+\DoxyCodeLine{            \{\textcolor{stringliteral}{"b"}, \textcolor{stringliteral}{"Back"}\},}
+\DoxyCodeLine{      \{\textcolor{stringliteral}{"t"}, \textcolor{stringliteral}{"Take"}\},}
+\DoxyCodeLine{      \{\textcolor{stringliteral}{"d"}, \textcolor{stringliteral}{"Drop"}\},}
+\DoxyCodeLine{      \{\textcolor{stringliteral}{"r"}, \textcolor{stringliteral}{"Right"}\},}
+\DoxyCodeLine{      \{\textcolor{stringliteral}{"l"}, \textcolor{stringliteral}{"Left"}\},}
+\DoxyCodeLine{      \{\textcolor{stringliteral}{"a"}, \textcolor{stringliteral}{"Attack"}\}\}}
+
+\end{DoxyCode}

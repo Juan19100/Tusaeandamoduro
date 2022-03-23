@@ -1,0 +1,344 @@
+\hypertarget{player_8c}{}\doxysection{player.\+c File Reference}
+\label{player_8c}\index{player.c@{player.c}}
+
+
+.c que sirve para todo lo relacionado con el jugador  
+
+
+{\ttfamily \#include $<$stdio.\+h$>$}\newline
+{\ttfamily \#include $<$stdlib.\+h$>$}\newline
+{\ttfamily \#include $<$string.\+h$>$}\newline
+{\ttfamily \#include \char`\"{}types.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}player.\+h\char`\"{}}\newline
+Include dependency graph for player.\+c\+:
+% FIG 0
+\doxysubsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+struct \mbox{\hyperlink{struct__Player}{\+\_\+\+Player}}
+\begin{DoxyCompactList}\small\item\em Player. \end{DoxyCompactList}\end{DoxyCompactItemize}
+\doxysubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{struct__Player}{Player}} $\ast$ \mbox{\hyperlink{player_8c_a97ea1d0deda3c51ef6ce63a13dab7a38}{player\+\_\+create}} (Id id)
+\begin{DoxyCompactList}\small\item\em crea el jugador con el id correspondiente \end{DoxyCompactList}\item 
+S\+T\+A\+T\+US \mbox{\hyperlink{player_8c_a68e324aa5064e27d0a2f38aafb6809ad}{player\+\_\+destroy}} (\mbox{\hyperlink{struct__Player}{Player}} $\ast$player)
+\begin{DoxyCompactList}\small\item\em destruye el jugador \end{DoxyCompactList}\item 
+Id \mbox{\hyperlink{player_8c_af5a101ec91427951c5875569a8709956}{player\+\_\+get\+\_\+id}} (\mbox{\hyperlink{struct__Player}{Player}} $\ast$player)
+\begin{DoxyCompactList}\small\item\em busca el id del jugador \end{DoxyCompactList}\item 
+S\+T\+A\+T\+US \mbox{\hyperlink{player_8c_a6a30809f7775f5c2d3bef47d92769e59}{player\+\_\+set\+\_\+name}} (\mbox{\hyperlink{struct__Player}{Player}} $\ast$player, char $\ast$name)
+\begin{DoxyCompactList}\small\item\em asigna el nombre al jugador \end{DoxyCompactList}\item 
+const char $\ast$ \mbox{\hyperlink{player_8c_a6622c02be2fe230a5c0df66385a13ece}{player\+\_\+get\+\_\+name}} (\mbox{\hyperlink{struct__Player}{Player}} $\ast$player)
+\begin{DoxyCompactList}\small\item\em busca el nommbre del jugador \end{DoxyCompactList}\item 
+Id \mbox{\hyperlink{player_8c_aa50ce77ab79af7166d749619fd60acfe}{player\+\_\+get\+\_\+location}} (\mbox{\hyperlink{struct__Player}{Player}} $\ast$player)
+\begin{DoxyCompactList}\small\item\em busca la localizacion del jugador \end{DoxyCompactList}\item 
+S\+T\+A\+T\+US \mbox{\hyperlink{player_8c_a054e92b126f556153279b569f8987674}{player\+\_\+set\+\_\+location}} (\mbox{\hyperlink{struct__Player}{Player}} $\ast$player, Id location)
+\begin{DoxyCompactList}\small\item\em asigna una localizacion al jugador \end{DoxyCompactList}\item 
+Id \mbox{\hyperlink{player_8c_a5cd5f8feb257ff129bee682b23483769}{player\+\_\+get\+\_\+object\+\_\+id}} (\mbox{\hyperlink{struct__Player}{Player}} $\ast$player)
+\begin{DoxyCompactList}\small\item\em busca el id del objeto que tiene el jugador \end{DoxyCompactList}\item 
+S\+T\+A\+T\+US \mbox{\hyperlink{player_8c_ae25712463c39ae5d696720fc40a76652}{player\+\_\+set\+\_\+object\+\_\+id}} (\mbox{\hyperlink{struct__Player}{Player}} $\ast$player, Id id)
+\begin{DoxyCompactList}\small\item\em asigna un id al objeto del jugador \end{DoxyCompactList}\item 
+S\+T\+A\+T\+US \mbox{\hyperlink{player_8c_aa0f2f8b4d1b63a60ef927d47aa45dbd1}{player\+\_\+print}} (\mbox{\hyperlink{struct__Player}{Player}} $\ast$player)
+\begin{DoxyCompactList}\small\item\em imprime los datos del jugador \end{DoxyCompactList}\item 
+int \mbox{\hyperlink{player_8c_adc37044dd10f828fd54b27c8e088f4e7}{player\+\_\+get\+\_\+health}} (\mbox{\hyperlink{struct__Player}{Player}} $\ast$player)
+\begin{DoxyCompactList}\small\item\em obtiene la vida de player \end{DoxyCompactList}\item 
+S\+T\+A\+T\+US \mbox{\hyperlink{player_8c_a3afca875ad2b038e0d57d34bde6270fe}{player\+\_\+set\+\_\+health}} (\mbox{\hyperlink{struct__Player}{Player}} $\ast$player, int health)
+\begin{DoxyCompactList}\small\item\em asigna la vida al jugador \end{DoxyCompactList}\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+.c que sirve para todo lo relacionado con el jugador 
+
+\begin{DoxyAuthor}{Author}
+Ignacio 
+\end{DoxyAuthor}
+\begin{DoxyVersion}{Version}
+2.\+0 
+\end{DoxyVersion}
+\begin{DoxyDate}{Date}
+17-\/2-\/2022 
+\end{DoxyDate}
+\begin{DoxyCopyright}{Copyright}
+G\+NU Public License 
+\end{DoxyCopyright}
+
+
+\doxysubsection{Function Documentation}
+\mbox{\Hypertarget{player_8c_a97ea1d0deda3c51ef6ce63a13dab7a38}\label{player_8c_a97ea1d0deda3c51ef6ce63a13dab7a38}} 
+\index{player.c@{player.c}!player\_create@{player\_create}}
+\index{player\_create@{player\_create}!player.c@{player.c}}
+\doxysubsubsection{\texorpdfstring{player\_create()}{player\_create()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{struct__Player}{Player}}$\ast$ player\+\_\+create (\begin{DoxyParamCaption}\item[{Id}]{id }\end{DoxyParamCaption})}
+
+
+
+crea el jugador con el id correspondiente 
+
+\begin{DoxyAuthor}{Author}
+Ignacio
+\end{DoxyAuthor}
+player\+\_\+create crea el jugador con el id correspondiente y los demas valores de player inicializados 
+\begin{DoxyParams}{Parameters}
+{\em id} & de tipo Id \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+el jugador ya creado 
+\end{DoxyReturn}
+\mbox{\Hypertarget{player_8c_a68e324aa5064e27d0a2f38aafb6809ad}\label{player_8c_a68e324aa5064e27d0a2f38aafb6809ad}} 
+\index{player.c@{player.c}!player\_destroy@{player\_destroy}}
+\index{player\_destroy@{player\_destroy}!player.c@{player.c}}
+\doxysubsubsection{\texorpdfstring{player\_destroy()}{player\_destroy()}}
+{\footnotesize\ttfamily S\+T\+A\+T\+US player\+\_\+destroy (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{struct__Player}{Player}} $\ast$}]{player }\end{DoxyParamCaption})}
+
+
+
+destruye el jugador 
+
+\begin{DoxyAuthor}{Author}
+Ignacio
+\end{DoxyAuthor}
+player\+\_\+destroy libera la memoria asignada para player
+
+
+\begin{DoxyParams}{Parameters}
+{\em player} & puntero a player \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+OK si todo ha ido bien, de lo contrario E\+R\+R\+OR 
+\end{DoxyReturn}
+\mbox{\Hypertarget{player_8c_adc37044dd10f828fd54b27c8e088f4e7}\label{player_8c_adc37044dd10f828fd54b27c8e088f4e7}} 
+\index{player.c@{player.c}!player\_get\_health@{player\_get\_health}}
+\index{player\_get\_health@{player\_get\_health}!player.c@{player.c}}
+\doxysubsubsection{\texorpdfstring{player\_get\_health()}{player\_get\_health()}}
+{\footnotesize\ttfamily int player\+\_\+get\+\_\+health (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{struct__Player}{Player}} $\ast$}]{player }\end{DoxyParamCaption})}
+
+
+
+obtiene la vida de player 
+
+\begin{DoxyAuthor}{Author}
+Ignacio
+\end{DoxyAuthor}
+
+\begin{DoxyParams}{Parameters}
+{\em player} & puntero a player \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+int que corresponde a la vida y -\/1 en caso de error 
+\end{DoxyReturn}
+\mbox{\Hypertarget{player_8c_af5a101ec91427951c5875569a8709956}\label{player_8c_af5a101ec91427951c5875569a8709956}} 
+\index{player.c@{player.c}!player\_get\_id@{player\_get\_id}}
+\index{player\_get\_id@{player\_get\_id}!player.c@{player.c}}
+\doxysubsubsection{\texorpdfstring{player\_get\_id()}{player\_get\_id()}}
+{\footnotesize\ttfamily Id player\+\_\+get\+\_\+id (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{struct__Player}{Player}} $\ast$}]{player }\end{DoxyParamCaption})}
+
+
+
+busca el id del jugador 
+
+\begin{DoxyAuthor}{Author}
+Ignacio
+\end{DoxyAuthor}
+player\+\_\+get\+\_\+id busca el id del jugador en cuestion
+
+
+\begin{DoxyParams}{Parameters}
+{\em player} & puntero a player \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+el id del jugador en caso de tenerlo 
+\end{DoxyReturn}
+\mbox{\Hypertarget{player_8c_aa50ce77ab79af7166d749619fd60acfe}\label{player_8c_aa50ce77ab79af7166d749619fd60acfe}} 
+\index{player.c@{player.c}!player\_get\_location@{player\_get\_location}}
+\index{player\_get\_location@{player\_get\_location}!player.c@{player.c}}
+\doxysubsubsection{\texorpdfstring{player\_get\_location()}{player\_get\_location()}}
+{\footnotesize\ttfamily Id player\+\_\+get\+\_\+location (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{struct__Player}{Player}} $\ast$}]{player }\end{DoxyParamCaption})}
+
+
+
+busca la localizacion del jugador 
+
+\begin{DoxyAuthor}{Author}
+Ignacio
+\end{DoxyAuthor}
+player\+\_\+get\+\_\+location busca la localizacion del jugador
+
+
+\begin{DoxyParams}{Parameters}
+{\em player} & puntero a player \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+la localizacion del jugador 
+\end{DoxyReturn}
+\mbox{\Hypertarget{player_8c_a6622c02be2fe230a5c0df66385a13ece}\label{player_8c_a6622c02be2fe230a5c0df66385a13ece}} 
+\index{player.c@{player.c}!player\_get\_name@{player\_get\_name}}
+\index{player\_get\_name@{player\_get\_name}!player.c@{player.c}}
+\doxysubsubsection{\texorpdfstring{player\_get\_name()}{player\_get\_name()}}
+{\footnotesize\ttfamily const char$\ast$ player\+\_\+get\+\_\+name (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{struct__Player}{Player}} $\ast$}]{player }\end{DoxyParamCaption})}
+
+
+
+busca el nommbre del jugador 
+
+\begin{DoxyAuthor}{Author}
+Ignacio
+\end{DoxyAuthor}
+player\+\_\+get\+\_\+name busca el nombre del jugador
+
+
+\begin{DoxyParams}{Parameters}
+{\em player} & puntero a player \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+el nombre del jugador 
+\end{DoxyReturn}
+\mbox{\Hypertarget{player_8c_a5cd5f8feb257ff129bee682b23483769}\label{player_8c_a5cd5f8feb257ff129bee682b23483769}} 
+\index{player.c@{player.c}!player\_get\_object\_id@{player\_get\_object\_id}}
+\index{player\_get\_object\_id@{player\_get\_object\_id}!player.c@{player.c}}
+\doxysubsubsection{\texorpdfstring{player\_get\_object\_id()}{player\_get\_object\_id()}}
+{\footnotesize\ttfamily Id player\+\_\+get\+\_\+object\+\_\+id (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{struct__Player}{Player}} $\ast$}]{player }\end{DoxyParamCaption})}
+
+
+
+busca el id del objeto que tiene el jugador 
+
+\begin{DoxyAuthor}{Author}
+Ignacio
+\end{DoxyAuthor}
+player\+\_\+get\+\_\+object\+\_\+id busca el id del objeto que tiene el jugador
+
+
+\begin{DoxyParams}{Parameters}
+{\em player} & puntero a player \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+el id del objeto del jugador 
+\end{DoxyReturn}
+\mbox{\Hypertarget{player_8c_aa0f2f8b4d1b63a60ef927d47aa45dbd1}\label{player_8c_aa0f2f8b4d1b63a60ef927d47aa45dbd1}} 
+\index{player.c@{player.c}!player\_print@{player\_print}}
+\index{player\_print@{player\_print}!player.c@{player.c}}
+\doxysubsubsection{\texorpdfstring{player\_print()}{player\_print()}}
+{\footnotesize\ttfamily S\+T\+A\+T\+US player\+\_\+print (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{struct__Player}{Player}} $\ast$}]{player }\end{DoxyParamCaption})}
+
+
+
+imprime los datos del jugador 
+
+\begin{DoxyAuthor}{Author}
+Ignacio
+\end{DoxyAuthor}
+player\+\_\+print imprime los datos del jugador
+
+
+\begin{DoxyParams}{Parameters}
+{\em player} & puntero a player \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+OK si todo ha ido bien, de lo contrario E\+R\+R\+OR 
+\end{DoxyReturn}
+\mbox{\Hypertarget{player_8c_a3afca875ad2b038e0d57d34bde6270fe}\label{player_8c_a3afca875ad2b038e0d57d34bde6270fe}} 
+\index{player.c@{player.c}!player\_set\_health@{player\_set\_health}}
+\index{player\_set\_health@{player\_set\_health}!player.c@{player.c}}
+\doxysubsubsection{\texorpdfstring{player\_set\_health()}{player\_set\_health()}}
+{\footnotesize\ttfamily S\+T\+A\+T\+US player\+\_\+set\+\_\+health (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{struct__Player}{Player}} $\ast$}]{player,  }\item[{int}]{health }\end{DoxyParamCaption})}
+
+
+
+asigna la vida al jugador 
+
+\begin{DoxyAuthor}{Author}
+Ignacio
+\end{DoxyAuthor}
+
+\begin{DoxyParams}{Parameters}
+{\em player} & puntero a player \\
+\hline
+{\em health} & la vida nueva a asignar \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+S\+T\+A\+T\+US si todo ha ido bien, E\+R\+R\+OR en caso contrario 
+\end{DoxyReturn}
+\mbox{\Hypertarget{player_8c_a054e92b126f556153279b569f8987674}\label{player_8c_a054e92b126f556153279b569f8987674}} 
+\index{player.c@{player.c}!player\_set\_location@{player\_set\_location}}
+\index{player\_set\_location@{player\_set\_location}!player.c@{player.c}}
+\doxysubsubsection{\texorpdfstring{player\_set\_location()}{player\_set\_location()}}
+{\footnotesize\ttfamily S\+T\+A\+T\+US player\+\_\+set\+\_\+location (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{struct__Player}{Player}} $\ast$}]{player,  }\item[{Id}]{location }\end{DoxyParamCaption})}
+
+
+
+asigna una localizacion al jugador 
+
+\begin{DoxyAuthor}{Author}
+Ignacio
+\end{DoxyAuthor}
+player\+\_\+set\+\_\+location asiga la localizacion indicada al jugador
+
+
+\begin{DoxyParams}{Parameters}
+{\em player} & puntero a player \\
+\hline
+{\em id} & con la localización del jugador \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+OK si todo ha ido bien, de lo contrario E\+R\+R\+OR 
+\end{DoxyReturn}
+\mbox{\Hypertarget{player_8c_a6a30809f7775f5c2d3bef47d92769e59}\label{player_8c_a6a30809f7775f5c2d3bef47d92769e59}} 
+\index{player.c@{player.c}!player\_set\_name@{player\_set\_name}}
+\index{player\_set\_name@{player\_set\_name}!player.c@{player.c}}
+\doxysubsubsection{\texorpdfstring{player\_set\_name()}{player\_set\_name()}}
+{\footnotesize\ttfamily S\+T\+A\+T\+US player\+\_\+set\+\_\+name (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{struct__Player}{Player}} $\ast$}]{player,  }\item[{char $\ast$}]{name }\end{DoxyParamCaption})}
+
+
+
+asigna el nombre al jugador 
+
+\begin{DoxyAuthor}{Author}
+Ignacio
+\end{DoxyAuthor}
+player\+\_\+set\+\_\+name asigna el nombre(name) al jugador en cuastion
+
+
+\begin{DoxyParams}{Parameters}
+{\em player} & puntero a player \\
+\hline
+{\em name} & cadena de caracteres con el nombre del player \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+OK si todo ha ido bien, de lo contrario E\+R\+R\+OR 
+\end{DoxyReturn}
+\mbox{\Hypertarget{player_8c_ae25712463c39ae5d696720fc40a76652}\label{player_8c_ae25712463c39ae5d696720fc40a76652}} 
+\index{player.c@{player.c}!player\_set\_object\_id@{player\_set\_object\_id}}
+\index{player\_set\_object\_id@{player\_set\_object\_id}!player.c@{player.c}}
+\doxysubsubsection{\texorpdfstring{player\_set\_object\_id()}{player\_set\_object\_id()}}
+{\footnotesize\ttfamily S\+T\+A\+T\+US player\+\_\+set\+\_\+object\+\_\+id (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{struct__Player}{Player}} $\ast$}]{player,  }\item[{Id}]{id }\end{DoxyParamCaption})}
+
+
+
+asigna un id al objeto del jugador 
+
+\begin{DoxyAuthor}{Author}
+Ignacio
+\end{DoxyAuthor}
+player\+\_\+set\+\_\+object\+\_\+id asigna el id al objeto del jugador
+
+
+\begin{DoxyParams}{Parameters}
+{\em player} & puntero a player \\
+\hline
+{\em id} & del objeto \\
+\hline
+\end{DoxyParams}
+\begin{DoxyReturn}{Returns}
+OK si todo ha ido bien, de lo contrario E\+R\+R\+OR 
+\end{DoxyReturn}

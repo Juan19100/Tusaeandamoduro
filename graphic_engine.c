@@ -297,7 +297,7 @@ void graphic_engine_paint_game(Graphic_engine *ge, Game *game)
 
   sprintf(str, "  Player location: %ld", player_get_location(game_get_player(game)));
   screen_area_puts(ge->descript, str);
-  if (player_get_object_id(game_get_player(game)) == NO_ID)
+  if (player_get_num_objects(game_get_player(game)) == 0)
   {
     sprintf(str, "  Player object: vacio");
     screen_area_puts(ge->descript, str);
@@ -305,9 +305,16 @@ void graphic_engine_paint_game(Graphic_engine *ge, Game *game)
 
   else
   {
-    sprintf(str, "  Player object: %ld", player_get_object_id(game_get_player(game)));
+    sprintf(str, "  Player objects:");
+    for(i=0; i < player_get_num_objects(game_get_player(game)) ; i++){
+        if((obj_id = player_get_object_by_position(game_get_player(game), i)) != NO_ID){
+          sprintf(str_aux, " %ld", obj_id);
+          strcat(str, str_aux);
+        }
+    }
     screen_area_puts(ge->descript, str);
   }
+  
   sprintf(str, "  Player health: %d", player_get_health(game_get_player(game)));
   screen_area_puts(ge->descript, str);
 

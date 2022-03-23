@@ -19,13 +19,21 @@
  *@post puntero a inventory distinto de NULL
  */
 void test1_inventory_create();
+
+/**
+ * @brief Test creación de inventory
+ * @author Alberto
+ * @pre puntero a inventory igual a NULL
+ *@post NO_ID ya que el puntero a inv es NULL
+ */
+void test2_inventory_create();
 /**
  * @brief prueba el añadir un objeto a inventory
  * @author Alberto
  * @pre puntero a inventory no nulo
  *@post OK si al inventory se le ha añadido el id
  */
-void test1_inventory_add();
+void test1_inventory_add_object();
 
 /**
  * @brief prueba el añadir un objeto a inventory
@@ -33,7 +41,7 @@ void test1_inventory_add();
  * @pre puntero a inventory nulo
  *@post ERROR porque el inventory es nulo
  */
-void test2_inventory_add();
+void test2_inventory_add_object();
 
 /**
  * @brief prueba el añadir un objeto a inventory
@@ -41,7 +49,7 @@ void test2_inventory_add();
  * @pre puntero a inventory no nulo
  *@post ERROR al añadirse NO_ID
  */
-void test3_inventory_add();
+void test3_inventory_add_object();
 
 /**
  * @brief prueba de eliminación de objeto
@@ -49,7 +57,7 @@ void test3_inventory_add();
  * @pre Puntero a inventory no nulo
  *@post  OK al encontrarse el id ya añadido
  */
-void test1_inventory_del();
+void test1_inventory_del_object();
 
 /**
  * @brief prueba de eliminación de objeto
@@ -57,7 +65,7 @@ void test1_inventory_del();
  * @pre Puntero a inventory nulo
  *@post ERROR al ser el inventory nulo
  */
-void test2_inventory_del();
+void test2_inventory_del_object();
 
 /**
  * @brief prueba de eliminación de objeto
@@ -65,7 +73,7 @@ void test2_inventory_del();
  * @pre Puntero a inventory no nulo
  *@post ERROR al buscar un id no añadido
  */
-void test3_inventory_del();
+void test3_inventory_del_object();
 
 /**
  * @brief prueba del número de id 
@@ -89,7 +97,7 @@ void test2_inventory_get_num_objects();
  * @pre Puntero a inventory con objeto id 4
  *@post Un id válido en la primera posición
  */
-void test1_inventory_get_object();
+void test1_get_object();
 
 /**
  * @brief prueba de que se obtienen bien los objetos
@@ -97,7 +105,7 @@ void test1_inventory_get_object();
  * @pre Puntero a inventory nulo
  *@post NO_ID ya que el inventory es nulo
  */
-void test2_inventory_get_object();
+void test2_get_object();
 
 /**
  * @brief prueba de que se obtienen bien los objetos
@@ -105,7 +113,7 @@ void test2_inventory_get_object();
  * @pre Puntero a inventory con objeto id 4
  *@post NO_ID ya que se busca el id 5
  */
-void test3_inventory_get_object();
+void test3_get_object();
 
 /**
  * @brief prueba de que se obtiene bien el máximo de objetos

@@ -1,0 +1,200 @@
+\hypertarget{object__test_8c}{}\doxysection{object\+\_\+test.\+c File Reference}
+\label{object__test_8c}\index{object\_test.c@{object\_test.c}}
+
+
+It tests object module.  
+
+
+{\ttfamily \#include $<$stdio.\+h$>$}\newline
+{\ttfamily \#include $<$stdlib.\+h$>$}\newline
+{\ttfamily \#include $<$string.\+h$>$}\newline
+{\ttfamily \#include \char`\"{}object.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}object\+\_\+test.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}test.\+h\char`\"{}}\newline
+Include dependency graph for object\+\_\+test.\+c\+:
+% FIG 0
+\doxysubsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\Hypertarget{object__test_8c_a2a77d2f2c5b698c69c19e1f8782bf709}\label{object__test_8c_a2a77d2f2c5b698c69c19e1f8782bf709}} 
+\#define {\bfseries M\+A\+X\+\_\+\+T\+E\+S\+TS}~20
+\end{DoxyCompactItemize}
+\doxysubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+int \mbox{\hyperlink{object__test_8c_a3c04138a5bfe5d72780bb7e82a18e627}{main}} (int argc, char $\ast$$\ast$argv)
+\begin{DoxyCompactList}\small\item\em Main function for object unit tests. \end{DoxyCompactList}\item 
+void \mbox{\hyperlink{object__test_8c_a3836d69f92ce7149d56bafcaec83f516}{test1\+\_\+object\+\_\+create}} ()
+\item 
+void \mbox{\hyperlink{object__test_8c_add54ab5e33a1b0a93e9ddcf73591bd9f}{test2\+\_\+object\+\_\+create}} ()
+\item 
+void \mbox{\hyperlink{object__test_8c_aa88e9e9dab92ba9c58851d7a7a8415f0}{test1\+\_\+object\+\_\+get\+\_\+id}} ()
+\item 
+void \mbox{\hyperlink{object__test_8c_a1ff250f0f43297f57fcce1f3a6ae490b}{test2\+\_\+object\+\_\+get\+\_\+id}} ()
+\item 
+void \mbox{\hyperlink{object__test_8c_ad2411bc3cc47c9905e63a3d9c561d369}{test1\+\_\+object\+\_\+get\+\_\+name}} ()
+\item 
+void \mbox{\hyperlink{object__test_8c_abdfafbc7b8588d3dcdb05fd2beb2397e}{test2\+\_\+object\+\_\+get\+\_\+name}} ()
+\item 
+void \mbox{\hyperlink{object__test_8c_a74e25ad653c4a32b9922fff8e4f916fd}{test1\+\_\+object\+\_\+set\+\_\+name}} ()
+\item 
+void \mbox{\hyperlink{object__test_8c_acf42b7e7be91ede243f2aaa56c4c9347}{test2\+\_\+object\+\_\+set\+\_\+name}} ()
+\item 
+void \mbox{\hyperlink{object__test_8c_ab40669b5d083b6484197d917fb6882b1}{test3\+\_\+object\+\_\+set\+\_\+name}} ()
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+It tests object module. 
+
+\begin{DoxyAuthor}{Author}
+Nacho 
+\end{DoxyAuthor}
+\begin{DoxyVersion}{Version}
+3.\+0 
+\end{DoxyVersion}
+\begin{DoxyDate}{Date}
+09-\/03-\/2021 
+\end{DoxyDate}
+\begin{DoxyCopyright}{Copyright}
+G\+NU Public License 
+\end{DoxyCopyright}
+
+
+\doxysubsection{Function Documentation}
+\mbox{\Hypertarget{object__test_8c_a3c04138a5bfe5d72780bb7e82a18e627}\label{object__test_8c_a3c04138a5bfe5d72780bb7e82a18e627}} 
+\index{object\_test.c@{object\_test.c}!main@{main}}
+\index{main@{main}!object\_test.c@{object\_test.c}}
+\doxysubsubsection{\texorpdfstring{main()}{main()}}
+{\footnotesize\ttfamily int main (\begin{DoxyParamCaption}\item[{int}]{argc,  }\item[{char $\ast$$\ast$}]{argv }\end{DoxyParamCaption})}
+
+
+
+Main function for object unit tests. 
+
+You may execute A\+LL or a S\+I\+N\+G\+LE test 1.-\/ No parameter -\/$>$ A\+LL test are executed 2.-\/ A number means a particular test (the one identified by that number) is executed \mbox{\Hypertarget{object__test_8c_a3836d69f92ce7149d56bafcaec83f516}\label{object__test_8c_a3836d69f92ce7149d56bafcaec83f516}} 
+\index{object\_test.c@{object\_test.c}!test1\_object\_create@{test1\_object\_create}}
+\index{test1\_object\_create@{test1\_object\_create}!object\_test.c@{object\_test.c}}
+\doxysubsubsection{\texorpdfstring{test1\_object\_create()}{test1\_object\_create()}}
+{\footnotesize\ttfamily void test1\+\_\+object\+\_\+create (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+\begin{DoxyRefDesc}{Test}
+\item[\mbox{\hyperlink{test__test000020}{Test}}]Test object creation \end{DoxyRefDesc}
+\begin{DoxyPrecond}{Precondition}
+object ID 
+\end{DoxyPrecond}
+\begin{DoxyPostcond}{Postcondition}
+Non N\+U\+LL pointer to object 
+\end{DoxyPostcond}
+\mbox{\Hypertarget{object__test_8c_aa88e9e9dab92ba9c58851d7a7a8415f0}\label{object__test_8c_aa88e9e9dab92ba9c58851d7a7a8415f0}} 
+\index{object\_test.c@{object\_test.c}!test1\_object\_get\_id@{test1\_object\_get\_id}}
+\index{test1\_object\_get\_id@{test1\_object\_get\_id}!object\_test.c@{object\_test.c}}
+\doxysubsubsection{\texorpdfstring{test1\_object\_get\_id()}{test1\_object\_get\_id()}}
+{\footnotesize\ttfamily void test1\+\_\+object\+\_\+get\+\_\+id (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+\begin{DoxyRefDesc}{Test}
+\item[\mbox{\hyperlink{test__test000022}{Test}}]prueba la funcionalidad de conseguir el id del objeto \end{DoxyRefDesc}
+\begin{DoxyPrecond}{Precondition}
+puntero a objeto no nulo 
+\end{DoxyPrecond}
+\begin{DoxyPostcond}{Postcondition}
+output == 25 
+\end{DoxyPostcond}
+\mbox{\Hypertarget{object__test_8c_ad2411bc3cc47c9905e63a3d9c561d369}\label{object__test_8c_ad2411bc3cc47c9905e63a3d9c561d369}} 
+\index{object\_test.c@{object\_test.c}!test1\_object\_get\_name@{test1\_object\_get\_name}}
+\index{test1\_object\_get\_name@{test1\_object\_get\_name}!object\_test.c@{object\_test.c}}
+\doxysubsubsection{\texorpdfstring{test1\_object\_get\_name()}{test1\_object\_get\_name()}}
+{\footnotesize\ttfamily void test1\+\_\+object\+\_\+get\+\_\+name (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+\begin{DoxyRefDesc}{Test}
+\item[\mbox{\hyperlink{test__test000027}{Test}}]prueba la funcionalidad de conseguir el nombre del objeto \end{DoxyRefDesc}
+\begin{DoxyPrecond}{Precondition}
+puntero a objeto no nulo 
+\end{DoxyPrecond}
+\begin{DoxyPostcond}{Postcondition}
+Output == 0 
+\end{DoxyPostcond}
+\mbox{\Hypertarget{object__test_8c_a74e25ad653c4a32b9922fff8e4f916fd}\label{object__test_8c_a74e25ad653c4a32b9922fff8e4f916fd}} 
+\index{object\_test.c@{object\_test.c}!test1\_object\_set\_name@{test1\_object\_set\_name}}
+\index{test1\_object\_set\_name@{test1\_object\_set\_name}!object\_test.c@{object\_test.c}}
+\doxysubsubsection{\texorpdfstring{test1\_object\_set\_name()}{test1\_object\_set\_name()}}
+{\footnotesize\ttfamily void test1\+\_\+object\+\_\+set\+\_\+name (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+\begin{DoxyRefDesc}{Test}
+\item[\mbox{\hyperlink{test__test000024}{Test}}]Test function for object\+\_\+name setting \end{DoxyRefDesc}
+\begin{DoxyPrecond}{Precondition}
+String with object name 
+\end{DoxyPrecond}
+\begin{DoxyPostcond}{Postcondition}
+Ouput==OK 
+\end{DoxyPostcond}
+\mbox{\Hypertarget{object__test_8c_add54ab5e33a1b0a93e9ddcf73591bd9f}\label{object__test_8c_add54ab5e33a1b0a93e9ddcf73591bd9f}} 
+\index{object\_test.c@{object\_test.c}!test2\_object\_create@{test2\_object\_create}}
+\index{test2\_object\_create@{test2\_object\_create}!object\_test.c@{object\_test.c}}
+\doxysubsubsection{\texorpdfstring{test2\_object\_create()}{test2\_object\_create()}}
+{\footnotesize\ttfamily void test2\+\_\+object\+\_\+create (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+\begin{DoxyRefDesc}{Test}
+\item[\mbox{\hyperlink{test__test000021}{Test}}]Test object creation \end{DoxyRefDesc}
+\begin{DoxyPrecond}{Precondition}
+object ID 
+\end{DoxyPrecond}
+\begin{DoxyPostcond}{Postcondition}
+object\+\_\+\+ID == Supplied object Id 
+\end{DoxyPostcond}
+\mbox{\Hypertarget{object__test_8c_a1ff250f0f43297f57fcce1f3a6ae490b}\label{object__test_8c_a1ff250f0f43297f57fcce1f3a6ae490b}} 
+\index{object\_test.c@{object\_test.c}!test2\_object\_get\_id@{test2\_object\_get\_id}}
+\index{test2\_object\_get\_id@{test2\_object\_get\_id}!object\_test.c@{object\_test.c}}
+\doxysubsubsection{\texorpdfstring{test2\_object\_get\_id()}{test2\_object\_get\_id()}}
+{\footnotesize\ttfamily void test2\+\_\+object\+\_\+get\+\_\+id (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+\begin{DoxyRefDesc}{Test}
+\item[\mbox{\hyperlink{test__test000023}{Test}}]prueba la funcionalidad de conseguir el id del objeto \end{DoxyRefDesc}
+\begin{DoxyPrecond}{Precondition}
+puntero a objeto nulo 
+\end{DoxyPrecond}
+\begin{DoxyPostcond}{Postcondition}
+output == N\+O\+\_\+\+ID 
+\end{DoxyPostcond}
+\mbox{\Hypertarget{object__test_8c_abdfafbc7b8588d3dcdb05fd2beb2397e}\label{object__test_8c_abdfafbc7b8588d3dcdb05fd2beb2397e}} 
+\index{object\_test.c@{object\_test.c}!test2\_object\_get\_name@{test2\_object\_get\_name}}
+\index{test2\_object\_get\_name@{test2\_object\_get\_name}!object\_test.c@{object\_test.c}}
+\doxysubsubsection{\texorpdfstring{test2\_object\_get\_name()}{test2\_object\_get\_name()}}
+{\footnotesize\ttfamily void test2\+\_\+object\+\_\+get\+\_\+name (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+\begin{DoxyRefDesc}{Test}
+\item[\mbox{\hyperlink{test__test000028}{Test}}]prueba la funcionalidad de conseguir el nombre del objeto \end{DoxyRefDesc}
+\begin{DoxyPrecond}{Precondition}
+puntero a objeto = N\+U\+LL 
+\end{DoxyPrecond}
+\begin{DoxyPostcond}{Postcondition}
+Output == N\+U\+LL 
+\end{DoxyPostcond}
+\mbox{\Hypertarget{object__test_8c_acf42b7e7be91ede243f2aaa56c4c9347}\label{object__test_8c_acf42b7e7be91ede243f2aaa56c4c9347}} 
+\index{object\_test.c@{object\_test.c}!test2\_object\_set\_name@{test2\_object\_set\_name}}
+\index{test2\_object\_set\_name@{test2\_object\_set\_name}!object\_test.c@{object\_test.c}}
+\doxysubsubsection{\texorpdfstring{test2\_object\_set\_name()}{test2\_object\_set\_name()}}
+{\footnotesize\ttfamily void test2\+\_\+object\+\_\+set\+\_\+name (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+\begin{DoxyRefDesc}{Test}
+\item[\mbox{\hyperlink{test__test000025}{Test}}]Test function for object\+\_\+name setting \end{DoxyRefDesc}
+\begin{DoxyPrecond}{Precondition}
+pointer to object = N\+U\+LL 
+\end{DoxyPrecond}
+\begin{DoxyPostcond}{Postcondition}
+Output==E\+R\+R\+OR 
+\end{DoxyPostcond}
+\mbox{\Hypertarget{object__test_8c_ab40669b5d083b6484197d917fb6882b1}\label{object__test_8c_ab40669b5d083b6484197d917fb6882b1}} 
+\index{object\_test.c@{object\_test.c}!test3\_object\_set\_name@{test3\_object\_set\_name}}
+\index{test3\_object\_set\_name@{test3\_object\_set\_name}!object\_test.c@{object\_test.c}}
+\doxysubsubsection{\texorpdfstring{test3\_object\_set\_name()}{test3\_object\_set\_name()}}
+{\footnotesize\ttfamily void test3\+\_\+object\+\_\+set\+\_\+name (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+\begin{DoxyRefDesc}{Test}
+\item[\mbox{\hyperlink{test__test000026}{Test}}]Test function for object\+\_\+name setting \end{DoxyRefDesc}
+\begin{DoxyPrecond}{Precondition}
+pointer to object\+\_\+name = N\+U\+LL (point to object = N\+ON N\+U\+LL) 
+\end{DoxyPrecond}
+\begin{DoxyPostcond}{Postcondition}
+Output==E\+R\+R\+OR 
+\end{DoxyPostcond}
