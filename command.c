@@ -24,7 +24,8 @@ char *cmd_to_str[N_CMD]
       {"d", "Drop"},
       {"r", "Right"},
       {"l", "Left"},
-      {"a", "Attack"}};
+      {"a", "Attack"},
+      {"i", "Inspect"}};
 
 T_Command command_get_user_input()
 {

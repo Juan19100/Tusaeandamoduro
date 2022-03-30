@@ -80,4 +80,5 @@ int inventory_get_max_objects(Inventory *inv);
  */
 STATUS inventory_print(Inventory *inv);
 
+STATUS inventory_set_max_objects(Inventory *inv, int obj_max);
 #endif

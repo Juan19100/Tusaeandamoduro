@@ -144,3 +144,10 @@ BOOL player_has_object(Player *player, Id object_id){
     }
     return FALSE;
 }
+
+STATUS player_set_max_objects(Player *player, int obj_max){
+    if(!player) return ERROR;
+
+    if(!inventory_set_max_objects(player->inv, obj_max)) return ERROR;
+    return OK;
+}

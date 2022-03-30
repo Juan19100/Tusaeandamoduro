@@ -50,6 +50,18 @@ STATUS game_reader_add_object(Game *game, Object *object);
  */
 STATUS game_reader_add_link(Game *game, Link *l);
 
+STATUS game_reader_add_player(Game *game, Player *player){
+  if(!player || !game) return ERROR;
+
+  return game_add_player(game, player);
+}
+
+
+STATUS game_reader_add_enemy(Game *game, Enemy *enemy){
+  if(!enemy || !game) return ERROR;
+
+  return game_add_enemy(game, enemy);
+}
 
 STATUS game_reader_add_space(Game *game, Space *space)
 {
@@ -258,6 +270,120 @@ STATUS game_load_objects(Game *game, char *filename)
         space_add_object(game_get_space(game,space_id), id);
         game_reader_add_object(game, object);
       }
+    }
+  }
+
+  if (ferror(file))
+  {
+    status = ERROR;
+  }
+
+  fclose(file);
+
+  return status;
+}
+
+
+STATUS game_reader_load_player(Game *game, char *filename)
+{
+  FILE *file = NULL;
+  Player *player = NULL;
+  char line[WORD_SIZE] = "";
+  char name[WORD_SIZE] = "";
+  char *toks = NULL;
+  Id id = NO_ID, space_id = NO_ID;
+  int health=0, obj_max=0;
+  STATUS status = OK;
+
+  if (!filename)
+  {
+    return ERROR;
+  }
+
+  file = fopen(filename, "r");
+  if (file == NULL)
+  {
+    return ERROR;
+  }
+
+  if (strncmp("#p:", line, 3) == 0)
+  {
+    toks = strtok(line + 3, "|");
+    id = atol(toks);
+    toks = strtok(NULL, "|");
+    strcpy(name, toks);
+    toks = strtok(NULL, "|");
+    space_id = atol(toks);
+    toks = strtok(NULL, "|");
+    health = atol(toks);
+    toks = strtok(NULL, "|");
+    obj_max = atol(toks);
+#ifdef DEBUG
+    printf("Leido: %ld|%s|%ld\n", id, name, space_id);
+#endif
+    player = player_create(id);
+    if (player != NULL)
+    {
+      player_set_name(player, name);
+      player_set_location(player, space_id);
+      player_set_health(player,health);
+      player_set_max_objects(player, obj_max);
+      game_reader_add_player(game, player);
+    }
+  }
+
+  if (ferror(file))
+  {
+    status = ERROR;
+  }
+
+  fclose(file);
+
+  return status;
+}
+
+STATUS game_reader_load_enemy(Game *game, char *filename)
+{
+  FILE *file = NULL;
+  Enemy *enemy = NULL;
+  char line[WORD_SIZE] = "";
+  char name[WORD_SIZE] = "";
+  char *toks = NULL;
+  Id id = NO_ID, space_id = NO_ID;
+  int health=0;
+  STATUS status = OK;
+
+  if (!filename)
+  {
+    return ERROR;
+  }
+
+  file = fopen(filename, "r");
+  if (file == NULL)
+  {
+    return ERROR;
+  }
+
+  if (strncmp("#e:", line, 3) == 0)
+  {
+    toks = strtok(line + 3, "|");
+    id = atol(toks);
+    toks = strtok(NULL, "|");
+    strcpy(name, toks);
+    toks = strtok(NULL, "|");
+    space_id = atol(toks);
+    toks = strtok(NULL, "|");
+    health = atol(toks);
+#ifdef DEBUG
+    printf("Leido: %ld|%s|%ld\n", id, name, space_id);
+#endif
+    enemy = enemy_create(id);
+    if (enemy != NULL)
+    {
+      enemy_set_name(enemy, name);
+      enemy_set_location(enemy, space_id);
+      enemy_set_health(enemy,health);
+      game_reader_add_enemy(game, enemy);
     }
   }
 

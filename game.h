@@ -231,6 +231,26 @@ Object *game_get_object_by_position(Game *game, int position);
 STATUS game_get_status_last_cmd(Game *game);
 
 /**
+ * @brief añade un player al juego
+ * @author Ignacio
+ * 
+ * @param game puntero a game
+ * @param id del jugador a añadir
+ * @return OK si se ha añadido, ERROR en caso contrario
+ */
+STATUS game_add_player(Game* game, Player *player);
+
+/**
+ * @brief añade un enemy al juego
+ * @author Alberto
+ * 
+ * @param game puntero a game
+ * @param id del enemigo a añadir
+ * @return OK si se ha añadido, ERROR en caso contrario
+ */
+STATUS game_add_enemy(Game* game, Enemy *enemy);
+
+/**
  * @brief añade un link al juego
  * @author
  * 
@@ -239,5 +259,9 @@ STATUS game_get_status_last_cmd(Game *game);
  * @return OK si todo ha ido bien, ERROR en caso contrario
  */
 STATUS game_add_link(Game *game, Link *l);
+
+void game_command_inspect(Game *game);
+
+
 
 #endif

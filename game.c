@@ -121,6 +121,7 @@ void game_command_left(Game *game);
  */
 void game_command_attack(Game *game);
 
+Id game_get_object_by_name(Game *game, char* name);
 /**
    Game interface implementation
 */
@@ -321,6 +322,10 @@ STATUS game_update(Game *game, T_Command cmd)
 
     case ATTACK:
       game_command_attack(game);
+      break;
+
+    case INSPECT:
+      game_command_inspect(game);
       break;
 
     default:
@@ -613,6 +618,25 @@ void game_command_attack(Game *game)
   game->status_last_cmd = OK;
 }
 
+void game_command_inspect(Game *game){
+
+  char opcion, description[WORD_SIZE], name[WORD_SIZE];
+
+  scanf(" %c", &opcion);
+    
+  if(strcmp(opcion, 'o')==0){
+    scanf(" %s", name);
+    strcpy (description, game_get_descr_by_name(game->object, name));
+  }
+  else if(strcmp(opcion, 's') == 0){
+    
+  }
+  else{
+
+  }
+  return;
+} 
+
 STATUS game_add_object(Game* game, Id id){
   int i = 0;
   if(!game) return ERROR;
@@ -681,6 +705,22 @@ Object *game_get_object_by_position(Game *game, int position){
   return game->object[position];
 }
 
+STATUS game_add_player(Game* game, Player *player){
+  if(!game || !player) return ERROR;
+
+  game->player = player;
+
+  return OK;
+}
+
+STATUS game_add_enemy(Game* game, Enemy *enemy){
+  if(!game || !enemy) return ERROR;
+
+  game->enemy = enemy;
+
+  return OK;
+}
+
 STATUS game_get_status_last_cmd(Game *game){
   if(!game) return ERROR;
 
@@ -697,4 +737,29 @@ STATUS game_add_link(Game *game, Link *l){
   game->link[i] = l;
 
   return OK;
+}
+
+Id game_get_object_by_name(Game *game, char* name){
+  int i;
+
+  if(!game || !name) return NO_ID;
+
+  while(i < MAX_OBJECTS && game->object[i] != NULL){
+    if(strcmp(object_get_name(game->object[i]), name) == 0)
+      return object_get_id(game->object[i]);
+  }
+
+  return NO_ID;
+}
+
+char *game_get_descr_by_name(Game *game, char *name){
+  int i;
+  if(!game || !name) return NULL;
+
+  while(i < MAX_OBJECTS && game->object[i] != NULL){
+    if(strcmp(object_get_name(game->object[i]), name) == 0)
+      return object_get_decription(game->object[i]);
+  }
+
+  return NULL;
 }

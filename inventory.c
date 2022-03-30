@@ -70,3 +70,9 @@ STATUS inventory_print(Inventory *inv){
 
     return OK;
 }
+
+STATUS inventory_set_max_objects(Inventory *inv, int obj_max){
+    if(!inv) return ERROR;
+    inv->max_objs = obj_max;
+    return OK;
+}

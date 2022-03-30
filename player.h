@@ -157,5 +157,15 @@ int player_get_num_objects(Player *player);
 
 BOOL player_has_object(Player *player, Id object_id);
 
+/**
+  * @brief asigna el numero de objetos al jugador
+  * @author Alberto
+  *
+  * @param player puntero a player
+  * @param obj_max numero maximo de objetos de player
+  * @return OK si todo ha ido bien, de lo contrario ERROR
+*/
+STATUS player_set_max_objects(Player *player, int obj_max);
+
 
 #endif

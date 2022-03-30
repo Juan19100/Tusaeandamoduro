@@ -63,6 +63,29 @@ STATUS object_set_name(Object* object, char* name);
 const char* object_get_name(Object* object);
 
 /**
+  * @brief asigna una descripcion al objeto
+  * @author juan
+  *
+  * object_set_description asigna la descripcion al objeto en cuestion
+  *  
+  * @param object puntero a object y puntero a char
+  * @param name cadena de caracteres con la nueva descripcion
+  * @return OK si todo ha id bien, de lo contrario ERROR
+  */
+STATUS object_set_description(Object* object, char* description);
+
+/**
+  * @brief devuelve la descripcion del objeto
+  * @author juan
+  *
+  * object_get_description devuelve el nombre del objeto en caso de tenerlo
+  *  
+  * @param object puntero a object
+  * @return la descripcion del objeto
+  */
+const char* object_get_decription(Object* object);
+
+/**
   * @brief imprime los datos del objeto
   * @author juan 
   *

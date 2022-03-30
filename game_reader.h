@@ -44,5 +44,14 @@ STATUS game_load_objects(Game *game, char *filename);
  */
 STATUS game_reader_load_links(Game *game, char *filename);
 
+STATUS game_reader_load_player(Game *game, char *filename);
+
+STATUS game_reader_add_player(Game *game, Player *player);
+
+STATUS game_reader_load_enemy(Game *game, char *filename);
+
+STATUS game_reader_add_enemy(Game *game, Enemy *enemy);
+
+
 
 #endif
