@@ -262,6 +262,6 @@ STATUS game_add_link(Game *game, Link *l);
 
 void game_command_inspect(Game *game);
 
-
+const char *game_get_descr_by_name(Game *game, char *name);
 
 #endif

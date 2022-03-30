@@ -138,9 +138,8 @@ Game* game_create()
   {
     game->spaces[i] = NULL;
   }
-
-  game->player= player_create(11);
-  game->enemy = enemy_create(31);
+  game->player = NULL;
+  game->enemy = NULL;
 
   for(i=0; i < MAX_OBJECTS; i++){
     game->object[i] = NULL;
@@ -161,13 +160,9 @@ STATUS game_create_from_file(Game *game, char *filename)
   if (game_create(game) == ERROR)
     return ERROR;
 
-  if (game_load_spaces(game, filename) == ERROR || game_load_objects(game, filename) == ERROR)
+  if (game_reader_load_enemy(game, filename) == ERROR || game_reader_load_player(game, filename) == ERROR || game_load_spaces(game, filename) == ERROR || game_load_objects(game, filename) == ERROR)
     return ERROR;
 
-  /* The player and the object are located in the first space */
-  game_set_player_location(game, game_get_space_id_at(game, 0));
-
-  game_set_enemy_location(game, 13);
 
   return OK;
 }
@@ -324,9 +319,9 @@ STATUS game_update(Game *game, T_Command cmd)
       game_command_attack(game);
       break;
 
-    case INSPECT:
+/*     case INSPECT:
       game_command_inspect(game);
-      break;
+      break; */
 
     default:
       break;
@@ -618,7 +613,7 @@ void game_command_attack(Game *game)
   game->status_last_cmd = OK;
 }
 
-void game_command_inspect(Game *game){
+/* void game_command_inspect(Game *game){
 
   char opcion, description[WORD_SIZE], name[WORD_SIZE];
 
@@ -636,7 +631,7 @@ void game_command_inspect(Game *game){
   }
   return;
 } 
-
+ */
 STATUS game_add_object(Game* game, Id id){
   int i = 0;
   if(!game) return ERROR;
@@ -740,25 +735,27 @@ STATUS game_add_link(Game *game, Link *l){
 }
 
 Id game_get_object_by_name(Game *game, char* name){
-  int i;
+  int i = 0;
 
   if(!game || !name) return NO_ID;
 
   while(i < MAX_OBJECTS && game->object[i] != NULL){
     if(strcmp(object_get_name(game->object[i]), name) == 0)
       return object_get_id(game->object[i]);
+    i++;
   }
 
   return NO_ID;
 }
 
-char *game_get_descr_by_name(Game *game, char *name){
-  int i;
+const char *game_get_descr_by_name(Game *game, char *name){
+  int i = 0;
   if(!game || !name) return NULL;
 
   while(i < MAX_OBJECTS && game->object[i] != NULL){
     if(strcmp(object_get_name(game->object[i]), name) == 0)
-      return object_get_decription(game->object[i]);
+      return object_get_description(game->object[i]);
+    i++;
   }
 
   return NULL;

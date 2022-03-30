@@ -305,7 +305,8 @@ STATUS game_reader_load_player(Game *game, char *filename)
   {
     return ERROR;
   }
-
+  while (fgets(line, WORD_SIZE, file))
+  {
   if (strncmp("#p:", line, 3) == 0)
   {
     toks = strtok(line + 3, "|");
@@ -330,6 +331,7 @@ STATUS game_reader_load_player(Game *game, char *filename)
       player_set_max_objects(player, obj_max);
       game_reader_add_player(game, player);
     }
+  }
   }
 
   if (ferror(file))
@@ -364,6 +366,8 @@ STATUS game_reader_load_enemy(Game *game, char *filename)
     return ERROR;
   }
 
+  while (fgets(line, WORD_SIZE, file))
+  {
   if (strncmp("#e:", line, 3) == 0)
   {
     toks = strtok(line + 3, "|");
@@ -385,6 +389,7 @@ STATUS game_reader_load_enemy(Game *game, char *filename)
       enemy_set_health(enemy,health);
       game_reader_add_enemy(game, enemy);
     }
+  }
   }
 
   if (ferror(file))

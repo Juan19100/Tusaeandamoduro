@@ -83,7 +83,7 @@ STATUS object_set_description(Object* object, char* description);
   * @param object puntero a object
   * @return la descripcion del objeto
   */
-const char* object_get_decription(Object* object);
+const char* object_get_description(Object* object);
 
 /**
   * @brief imprime los datos del objeto
@@ -95,5 +95,6 @@ const char* object_get_decription(Object* object);
   * @return OK si todo ha id bien, de lo contrario ERROR
   */
 STATUS object_print(Object* object);
+
 
 #endif

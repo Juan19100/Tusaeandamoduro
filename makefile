@@ -1,6 +1,6 @@
 #MACROS
 CC=gcc
-CFLAGS=-Wall -g -pedantic
+CFLAGS=-Wall -g -pedantic -DDEBUG
 CLIBS=-lscreen -L.
 
 .PHONY=clean
