@@ -33,7 +33,8 @@ typedef enum
   N,
   S,
   E,
-  W
+  W,
+  U /*añadido*/
 } DIRECTION;
 
 #endif

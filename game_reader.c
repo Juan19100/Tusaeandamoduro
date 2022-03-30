@@ -2,6 +2,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include "game_reader.h"
+#include "link.h"
 
 /**
  * @brief It defines the game loop
@@ -38,6 +39,16 @@ STATUS game_reader_add_space(Game *game, Space *space);
   * @return OK si ha ido todo bien o ERROR si ocure algun error
   */
 STATUS game_reader_add_object(Game *game, Object *object);
+
+/**
+ * @brief añade un link al juego
+ * @author
+ * 
+ * @param game puntero a game 
+ * @param l 
+ * @return STATUS 
+ */
+STATUS game_reader_add_link(Game *game, Link *l);
 
 
 STATUS game_reader_add_space(Game *game, Space *space)
@@ -132,6 +143,80 @@ STATUS game_reader_add_object(Game *game, Object *object)
   return game_add_object(game, object_get_id(object)); 
 }
 
+STATUS game_reader_add_link(Game *game, Link *l){
+  if(!game || !l) return ERROR;
+
+  return game_add_link(game, l);
+}
+
+STATUS game_reader_load_spaces(Game *game, char* filename){
+  FILE *f = NULL;
+  char line[WORD_SIZE] = "";
+  char name[WORD_SIZE] = "";
+  char *toks = NULL;
+  long direccion, estado;
+  DIRECTION dir = U;
+  Id orig_id = NO_ID, dest_id = NO_ID, link_id = NO_ID;
+  STATUS st = OK, st_aux = OK;
+  Link *l = NULL;
+  
+  if(!game || !filename) return ERROR;
+
+  f = fopen(filename, "r");
+  if(!f) return ERROR;
+
+  while(fgets(line, WORD_SIZE, f)){
+    if(strncmp("#l", line, 3) == 0){
+      toks = strtok(line + 3, "|");
+      link_id = atol(toks);
+      toks = strtok(NULL, "|");
+      strcpy(name, toks);
+      toks = strtok(NULL, "|");
+      orig_id = atol(toks);
+      toks = strtok(NULL, "|");
+      dest_id = atol(toks);
+      toks = strtok(NULL, "|");
+      direccion = atol(toks);
+      if(direccion == 1)
+        dir = N;
+      else if(direccion == 2)
+        dir = S;
+      else if(direccion == 3)
+        dir = E;
+      else if(direccion == 4)
+        dir = W;
+      else
+        dir = U;
+      toks = strtok(NULL, "|");
+      estado = atol(toks);
+      if(estado == 0)
+        st = OK;
+      else
+        st = ERROR;
+#ifdef DEBUG
+        printf("Leido: %ld|%s|%ld|%ld|%ld", link_id, name, orig_id, dest_id, direccion, estado);
+#endif
+      l = link_create();
+      if(l){
+        st_aux = link_set_destino(l, dest_id);
+        st_aux = link_set_direction(l,dir);
+        st_aux = link_set_estado(l, st);
+        st_aux = link_set_id(l, link_id);
+        st_aux = link_set_name(l, name);
+        st_aux = link_set_origen(l, orig_id);
+        st_aux = game_add_link(game, l);
+      }
+    }
+  }
+
+  if (ferror(f))
+  {
+    st_aux = ERROR;
+  }
+
+  fclose(f);
+  return st_aux;
+}
 STATUS game_load_objects(Game *game, char *filename)
 {
   FILE *file = NULL;
@@ -169,7 +254,6 @@ STATUS game_load_objects(Game *game, char *filename)
       object = object_create(id);
       if (object != NULL)
       {
-        printf("\nMARIA DEL CARMEN RUEGA POR NOSOTROS PECADORES AMEN\n");
         object_set_name(object, name);
         space_add_object(game_get_space(game,space_id), id);
         game_reader_add_object(game, object);

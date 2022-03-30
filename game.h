@@ -19,6 +19,7 @@
 #include "object.h"
 #include "set.h"
 #include "enemy.h"
+#include "link.h"
 
 typedef struct _Game Game;
 
@@ -220,5 +221,23 @@ Space *game_get_space_by_position(Game *game, int position);
  */
 Object *game_get_object_by_position(Game *game, int position);
 
+/**
+ * @brief comprueba el estado del ultimo comando
+ * @author Juan
+ * 
+ * @param game puntero a game
+ * @return OK si se ha ejecutado bien, ERROR en caso contrario
+ */
+STATUS game_get_status_last_cmd(Game *game);
+
+/**
+ * @brief añade un link al juego
+ * @author
+ * 
+ * @param game puntero a game 
+ * @param l puntero a link
+ * @return OK si todo ha ido bien, ERROR en caso contrario
+ */
+STATUS game_add_link(Game *game, Link *l);
 
 #endif

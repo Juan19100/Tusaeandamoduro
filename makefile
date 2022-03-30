@@ -12,7 +12,7 @@ ex:
 runv:
 	valgrind --leak-check=full ./hormiguero hormiguero.dat
 #ENLAZAMOS LOS ARCHIVOS PARA CREAR EL EJECUTABLE HORMIGUERO
-hormiguero: inventory.o command.o game_loop.o game.o graphic_engine.o set.o space.o game_reader.o player.o object.o enemy.o
+hormiguero: link.o inventory.o command.o game_loop.o game.o graphic_engine.o set.o space.o game_reader.o player.o object.o enemy.o
 	$(CC) -o$@ $^ $(CLIBS)
 
 space_test: space_test.o space.o set.o
@@ -67,6 +67,9 @@ set.o: set.c set.h types.h
 	$(CC) $(CFLAGS) -c $<
 
 inventory.o: inventory.c inventory.h set.h types.h
+	$(CC) $(CFLAGS) -c $<
+
+link.o: link.c types.h link.h
 	$(CC) $(CFLAGS) -c $<
 
 set_test.o: set_test.c set.h types.h set_test.h test.h

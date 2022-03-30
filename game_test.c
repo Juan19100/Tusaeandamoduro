@@ -43,6 +43,8 @@ int main (int argc, char** argv){
     if (all || test == 5) test2_game_get_space_id_at();
     if (all || test == 6) test1_game_get_space();
     if (all || test == 7) test2_game_get_space();
+    if (all || test == 8) test1_game_set_player_location();
+    if (all || test == 9) test2_game_set_player_location();
 
     PRINT_PASSED_PERCENTAGE;
 
@@ -96,10 +98,29 @@ void test1_game_get_space(){
     space_destroy(s);
 }
 
-
 void test2_game_get_space(){
     Space *s = NULL;
     PRINT_TEST_RESULT(game_get_space(s, 1) == NULL);
     space_destroy(s);
+}
+
+void test1_game_set_player_location(){
+    Player *p;
+    p = player_create(1);
+    PRINT_TEST_RESULT(player_set_location(p, 2) == OK);
+    player_destroy(p);
+}
+
+void test2_game_set_player_location(){
+    Player *p = NULL;
+    PRINT_TEST_RESULT(player_set_location(p, 1) == ERROR);
+}
+
+void test1_game_set_object_location(){
+
+}
+
+void test1_game_set_object_location(){
+    
 }
 

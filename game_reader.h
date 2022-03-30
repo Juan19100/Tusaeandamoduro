@@ -4,6 +4,7 @@
 
 #include "game.h"
 #include "space.h"
+#include "link.h"
 
 
 #include "types.h"
@@ -33,7 +34,15 @@ STATUS game_load_spaces(Game *game, char *filename);
   */
 STATUS game_load_objects(Game *game, char *filename);
 
-
+/**
+ * @brief carga los links desde el fichero
+ * @author
+ * 
+ * @param game puntero a game 
+ * @param filename nombre del fichero con la información
+ * @return OK si todo va bien, ERROR en caso cotrario
+ */
+STATUS game_reader_load_links(Game *game, char *filename);
 
 
 #endif

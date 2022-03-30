@@ -326,7 +326,6 @@ void graphic_engine_paint_game(Graphic_engine *ge, Game *game)
   sprintf(str, "  Enemy health: %d", enemy_get_health(game_get_enemy(game)));
   screen_area_puts(ge->descript, str);
 
-  
 
   /* Paint in the banner area */
   screen_area_puts(ge->banner, " The anthill game");
@@ -340,8 +339,16 @@ void graphic_engine_paint_game(Graphic_engine *ge, Game *game)
 
   /* Paint in the feedback area */
   last_cmd = game_get_last_command(game);
-  sprintf(str, " %s (%s): OK", cmd_to_str[last_cmd - NO_CMD][CMDL], cmd_to_str[last_cmd - NO_CMD][CMDS]);
-  screen_area_puts(ge->feedback, str);
+  if (last_cmd == NO_CMD || last_cmd == UNKNOWN) {
+    sprintf(str, " %s (%s)", cmd_to_str[last_cmd-NO_CMD][CMDL], cmd_to_str[last_cmd-NO_CMD][CMDS]);
+    screen_area_puts(ge->feedback, str);
+  } else if (game_get_status_last_cmd(game) == OK) {
+    sprintf(str, " %s (%s): OK", cmd_to_str[last_cmd-NO_CMD][CMDL], cmd_to_str[last_cmd-NO_CMD][CMDS]);
+    screen_area_puts(ge->feedback, str);
+  } else {
+    sprintf(str, " %s (%s): ERROR", cmd_to_str[last_cmd-NO_CMD][CMDL], cmd_to_str[last_cmd-NO_CMD][CMDS]);
+    screen_area_puts(ge->feedback, str);
+  }
 
   /* Dump to the terminal */
   screen_paint();

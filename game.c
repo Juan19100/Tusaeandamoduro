@@ -20,6 +20,7 @@
 #include "object.h"
 #include "set.h"
 #include "enemy.h"
+#include "link.h"
 
 #define MAX_RAND 9
 
@@ -28,7 +29,9 @@ struct _Game{
   Enemy *enemy; /*!<Puntero a la estructura enemy*/
   Object *object[MAX_OBJECTS]; /*!<Puntero a la estructura object*/
   Space *spaces[MAX_SPACES]; /*!<Puntero a array de la estructura spaces*/
+  Link *link[MAX_LINK];
   T_Command last_cmd; /*!<Variable tipo T_Command*/
+  STATUS status_last_cmd;/*!<Variable tipo STATUS*/
 };
 
 /**
@@ -80,43 +83,43 @@ void game_command_exit(Game *game);
  * 
  * @param game puntero a game
  */
-STATUS game_command_next(Game *game);
+void game_command_next(Game *game);
 /**
  * @brief comando para avanzar de casilla hacia el norte
  * 
  * @param game puntero a game
  */
-STATUS game_command_back(Game *game);
+void game_command_back(Game *game);
 /**
  * @brief comando para coger el objeto de la casilla actual si lo hay
  * 
  * @param game puntero a game
  */
-STATUS game_command_take(Game *game);
+void game_command_take(Game *game);
 /**
  * @brief comando para dejar el objeto del jugador en el espacio actual
  * 
  * @param game puntero a game
  */
-STATUS game_command_drop(Game *game);
+void game_command_drop(Game *game);
 /**
  * @brief comando para avanzar de casilla hacia el este
  * 
  * @param game puntero a game
  */
-STATUS game_command_right(Game *game);
+void game_command_right(Game *game);
 /**
  * @brief comando para avanzar de casilla hacia el oeste
  * 
  * @param game puntero a game
  */
-STATUS game_command_left(Game *game);
+void game_command_left(Game *game);
 /**
  * @brief comando para atacar al enemigo, con probabilidad aleatoria de hacerle daño o de quitarle vida al jugador
  * 
  * @param game puntero a game
  */
-STATUS game_command_attack(Game *game);
+void game_command_attack(Game *game);
 
 /**
    Game interface implementation
@@ -142,7 +145,11 @@ Game* game_create()
     game->object[i] = NULL;
   }
 
+  for(i=0; i < MAX_LINK; i++)
+    game->link[i] = NULL;
+
   game->last_cmd = NO_CMD;
+  game->status_last_cmd = OK;
 
   return game;
 }
@@ -360,7 +367,7 @@ void game_command_exit(Game *game)
   
 }
 
-STATUS game_command_next(Game *game)
+void game_command_next(Game *game)
 {
   int i = 0;
   Id current_id = NO_ID;
@@ -369,7 +376,8 @@ STATUS game_command_next(Game *game)
   space_id = game_get_player_location(game);
   if (space_id == NO_ID)
   {
-    return ERROR;
+    game->status_last_cmd = ERROR;
+    return;
   }
 
   for (i = 0; i < MAX_SPACES && game->spaces[i] != NULL; i++)
@@ -381,14 +389,18 @@ STATUS game_command_next(Game *game)
       if (current_id != NO_ID)
       {
         player_set_location(game->player, current_id);
+        game->status_last_cmd = OK;
       }
-      return OK;
+      else{
+      game->status_last_cmd = ERROR;
+      return;
+      }
     }
   }
-  return ERROR;
+  game->status_last_cmd = OK;
 }
 
-STATUS game_command_back(Game *game)
+void game_command_back(Game *game)
 {
   int i = 0;
   Id current_id = NO_ID;
@@ -398,7 +410,8 @@ STATUS game_command_back(Game *game)
 
   if (NO_ID == space_id)
   {
-    return ERROR;
+    game->status_last_cmd = ERROR;
+    return;
   }
 
   for (i = 0; i < MAX_SPACES && game->spaces[i] != NULL; i++)
@@ -410,59 +423,85 @@ STATUS game_command_back(Game *game)
       if (current_id != NO_ID)
       {
         player_set_location(game->player, current_id);
+        game->status_last_cmd = OK;
       }
-      return OK;
+      else{
+      game->status_last_cmd = ERROR;
+      return;
+      }
     }
   }
-  
-  return ERROR;
+  game->status_last_cmd = OK;
 }
 
-STATUS game_command_take(Game *game)
+void game_command_take(Game *game)
 {
   Id object_location;
   long object_id;
 
-  if(!game) return ERROR;
+  if(!game){
+    game->status_last_cmd = ERROR;
+    return;
+  } 
 
   scanf(" O%ld", &object_id);
-  if (object_id == NO_ID) return ERROR;
+  if (object_id == NO_ID){
+    game->status_last_cmd = ERROR;
+    return;
+  } 
   
   object_location = game_get_object_location(game, object_id);
-  if(object_location == NO_ID) return ERROR;
+  if(object_location == NO_ID){
+    game->status_last_cmd = ERROR;
+    return;
+  } 
   
-  if(object_location != player_get_location(game->player)) return ERROR;/*deben estar en la misma casilla*/
-
+  if(object_location != player_get_location(game->player)) {
+    game->status_last_cmd = ERROR;
+    return;/*deben estar en la misma casilla*/
+  }
   player_add_object(game->player, object_id);
 
   /*space_set_object(game_get_space(game, object_location), NO_ID);*/
   space_del_object(game_get_space(game, object_location), object_id);
-  
-  return OK;
+
+  game->status_last_cmd = OK;
 }
 
-STATUS game_command_drop(Game *game)
+void game_command_drop(Game *game)
 {
   Id object_id, space_id;
 
-  if(!game) return ERROR;
+  if(!game){
+    game->status_last_cmd = ERROR;
+    return;
+  } 
 
   scanf(" O%ld", &object_id);
   
-  if(player_has_object(game->player, object_id) == FALSE) return ERROR;
+  if(player_has_object(game->player, object_id) == FALSE){
+    game->status_last_cmd = ERROR;
+    return;
+  } 
   if(object_id == NO_ID) {
-    return ERROR;
+    game->status_last_cmd = ERROR;
+    return;
   }
   space_id = player_get_location(game->player);
 
-  if(space_add_object(game_get_space(game, space_id), object_id) == ERROR) return ERROR;
+  if(space_add_object(game_get_space(game, space_id), object_id) == ERROR){
+    game->status_last_cmd = ERROR;
+    return ;
+  } 
 
-  if(player_del_object(game->player, object_id) == ERROR) return ERROR;
-
-  return OK;
+  if(player_del_object(game->player, object_id) == ERROR){
+    game->status_last_cmd = ERROR;
+    return ;
+  }
+  game->status_last_cmd = OK;
 }
 
-STATUS game_command_right(Game *game)
+void game_command_right(Game *game)
 {
   int i = 0;
   Id current_id = NO_ID;
@@ -471,7 +510,8 @@ STATUS game_command_right(Game *game)
   space_id = game_get_player_location(game);
   if (space_id == NO_ID)
   {
-    return ERROR;
+    game->status_last_cmd = ERROR;
+    return;
   }
 
   for (i = 0; i < MAX_SPACES && game->spaces[i] != NULL; i++)
@@ -483,14 +523,18 @@ STATUS game_command_right(Game *game)
       if (current_id != NO_ID)
       {
         player_set_location(game->player, current_id);
+        game->status_last_cmd = OK;
       }
-      return ERROR;
+      else{
+      game->status_last_cmd = ERROR;
+      return;
+      }
     }
   }
-  return OK;
+  game->status_last_cmd = OK;
 }
 
-STATUS game_command_left(Game *game)
+void game_command_left(Game *game)
 {
   int i = 0;
   Id current_id = NO_ID;
@@ -499,7 +543,8 @@ STATUS game_command_left(Game *game)
   space_id = game_get_player_location(game);
   if (space_id == NO_ID)
   {
-    return ERROR;
+    game->status_last_cmd = ERROR;
+    return;
   }
 
   for (i = 0; i < MAX_SPACES && game->spaces[i] != NULL; i++)
@@ -511,31 +556,38 @@ STATUS game_command_left(Game *game)
       if (current_id != NO_ID)
       {
         player_set_location(game->player, current_id);
+        game->status_last_cmd = OK;
       }
-      return OK;
+      else{
+      game->status_last_cmd = ERROR;
+      return;
+      }
     }
   }
-  return ERROR;
+  game->status_last_cmd = OK;
 }
 
-STATUS game_command_attack(Game *game)
+void game_command_attack(Game *game)
 {
   int x=0;
   srand(time(NULL));
 
   if (game_get_player_location(game) != game_get_enemy_location(game)){
     /*printf("el enemigo no esta en el mismo espacio que el jugador");*/
-    return ERROR; 
+    game->status_last_cmd = ERROR;
+    return; 
   }
 
   if(player_get_health(game->player)<=0){
     /*printf("el jugador ya esta a 0 de vida");*/
-    return ERROR;
+    game->status_last_cmd = ERROR;
+    return;
   }
   
   if(enemy_get_health(game->enemy)<=0){
     /*printf("el enemigo ya esta a 0 de vida");*/
-    return ERROR;
+    game->status_last_cmd = ERROR;
+    return;
   }
 
   x = rand() % MAX_RAND;
@@ -545,25 +597,28 @@ STATUS game_command_attack(Game *game)
     if(player_get_health(game->player)==0){
         /*game_command_exit(game);*/
         game_is_over(game);
-        return OK;
+        game->status_last_cmd = ERROR;
+        return;
     }
-    return OK;
+    game->status_last_cmd = ERROR;
+    return;
   }
 
   else {
-    if(enemy_set_health(game->enemy, (enemy_get_health(game->enemy)-1))==ERROR)return ERROR;
-    return OK;
+    if(enemy_set_health(game->enemy, (enemy_get_health(game->enemy)-1))==ERROR){
+    game->status_last_cmd = ERROR;
+    return;
+    }
   }
+  game->status_last_cmd = OK;
 }
 
 STATUS game_add_object(Game* game, Id id){
   int i = 0;
   if(!game) return ERROR;
 
-  while(game->object[i] != NULL){
-    printf("\nHOLADSLIJFKLSAFHKSDBLDH\n");
+  while(game->object[i] != NULL)
     i++;
-  }
 
   if(i >= MAX_OBJECTS) return ERROR;
 
@@ -624,4 +679,22 @@ Object *game_get_object_by_position(Game *game, int position){
   if(!game || position < 0 || position >= MAX_OBJECTS) return NULL;
 
   return game->object[position];
+}
+
+STATUS game_get_status_last_cmd(Game *game){
+  if(!game) return ERROR;
+
+  return game->status_last_cmd;
+}
+
+STATUS game_add_link(Game *game, Link *l){
+  int i = 0;
+  if(!game || !l) return ERROR;
+
+  while(i < MAX_LINK && game->link[i] != NULL)
+    i++;
+
+  game->link[i] = l;
+
+  return OK;
 }
