@@ -1,16 +1,35 @@
-#s:11|Entrada|-1|-1|121|-1|     /   |mo  /   /|  _/   / | /    /  |/    /_  |
-#s:121|Pasillo 1|11|-1|122|-1|\    \   | \    \  |  \    \ |  /    / |_/    /  |
-#s:122|Pasillo 2|121|125|123|-1|_     \  | \_    \ |  _\    \| /       |/        |
-#s:125|Pasillo 5|-1|126|-1|122|       Oo|OOo   oOO|oOO      |oOoOooo  |oOoOooooo|
-#s:126|Pasillo 6|-1|127|-1|125|         |         |         |         |         |
-#s:127|Pasillo 7|-1|14|-1|126|         |         |         |         |         |
-#s:14|Agujero|-1|-1|-1|127|         |         |         |         |         |
-#s:123|Pasillo 3|122|-1|124|-1|oO     Oo|OOo   oOO|oOO  ooOo|o   ooooo|o  Oooooo|
-#s:124|Pasillo4|123|-1|13|-1|         |         |         |         |         |
-#s:13|Despensa|124|-1|-1|-1| \     / |  \   /  | -(   ) -|(   $D  )|  \ _ /  |
+#s:11|Entrada|     /   |mo  /   /|  _/   / | /    /  |/    /_  | Estas en la entrada
+#s:121|Pasillo 1|\    \   | \    \  |  \    \ |  /    / |_/    /  | Este pasillo perece tranquilo
+#s:122|Pasillo 2|_     \  | \_    \ |  _\    \| /       |/        | parece el mismo pasillo que antes
+#s:125|Pasillo 5|       Oo|OOo   oOO|oOO      |oOoOooo  |oOoOooooo| que rocoso!
+#s:126|Pasillo 6|         |         |         |         |         | que vacio esta esto
+#s:127|Pasillo 7|         |         |         |         |         | que vacio esta esto
+#s:14|Agujero|         |         |         |         |         | cuidado no te vayas a caer
+#s:123|Pasillo 3|oO     Oo|OOo   oOO|oOO  ooOo|o   ooooo|o  Oooooo| que rocoso!
+#s:124|Pasillo 4|         |         |         |         |         | que vacio esta esto
+#s:13|Despensa| \     / |  \   /  | -(   ) -|(   $D  )|  \ _ /  | cuidado! hay una aranha
 #o:21|Grano|11| este grano mide 0,1 mm
 #o:22|Piedra|121| esta piedra pesa mucho
 #o:23|Espada|13| esta espada esta muy afilada
 #o:24|Escudo|122| este escudo parece muy resistente
 #p:1|Manu|11|10|13
-#e:2|Kostadin|13|4
+#e:2|Kostadin|123|4
+#l:31|Entrada|11|121|1|0|
+#l:32|Pasillo 1|121|11|0|0|
+#l:33|Pasillo 1|121|122|1|0|
+#l:34|Pasillo 2|122|121|0|0|
+#l:35|Pasillo 2|122|125|2|0|
+#l:36|Pasillo 2|122|123|1|0|
+#l:37|Pasillo 5|125|122|3|0|
+#l:38|Pasillo 5|125|126|2|0|
+#l:39|Pasillo 6|126|127|2|0|
+#l:40|Pasillo 6|126|125|3|0|
+#l:41|Pasillo 7|127|126|3|0|
+#l:42|Pasillo 7|127|14|2|0|
+#l:43|Agujero|14|127|3|0|
+#l:44|Pasillo 3|123|122|0|0|
+#l:45|Pasillo 3|123|124|1|1|
+#l:46|Pasillo 4|124|123|0|0|
+#l:47|Pasillo 4|124|13|1|0|
+#l:48|Despensa|13|124|0|0|
+#l:49|Secreto|14|13|1|0|

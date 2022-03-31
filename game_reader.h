@@ -19,7 +19,7 @@
   * @param filename puntero a char
   * @return OK si ha ido todo bien o ERROR si ocure algun error
   */
-STATUS game_load_spaces(Game *game, char *filename);
+STATUS game_reader_load_spaces(Game *game, char *filename);
 
 
 /**
@@ -32,7 +32,7 @@ STATUS game_load_spaces(Game *game, char *filename);
   * @param filename puntero a char
   * @return OK si ha ido todo bien o ERROR si ocure algun error
   */
-STATUS game_load_objects(Game *game, char *filename);
+STATUS game_reader_load_objects(Game *game, char *filename);
 
 /**
  * @brief carga los links desde el fichero

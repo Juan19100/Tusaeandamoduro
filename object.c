@@ -77,7 +77,7 @@ STATUS object_set_description(Object* object, char* description){
     return OK;
 }
 
-const char* object_get_description(Object* object){
+char* object_get_description(Object* object){
     if (!object) return NULL;
 
     return object->description;

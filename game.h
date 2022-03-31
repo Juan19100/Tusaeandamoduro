@@ -262,6 +262,9 @@ STATUS game_add_link(Game *game, Link *l);
 
 void game_command_inspect(Game *game);
 
-const char *game_get_descr_by_name(Game *game, char *name);
+char *game_get_descr_by_name(Game *game, char *name);
 
+STATUS game_get_connection_status(Game *game, Id space_id, DIRECTION dir);
+Id game_get_connection(Game *game, Id space_id, DIRECTION dir);
+char *game_get_last_description(Game *game);
 #endif
