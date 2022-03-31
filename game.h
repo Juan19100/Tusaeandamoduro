@@ -43,7 +43,7 @@ Game* game_create();
   * @param filename puntero a char
   * @return OK si todo ha ido bien, o ERROR si ha ocurrido algun error
   */
-STATUS game_create_from_file(Game *game, char *filename);
+Game* game_create_from_file(char *filename);
 
 /**
   * @brief actualiza el juego 
@@ -143,7 +143,7 @@ T_Command game_get_last_command(Game *game);
  * @param id del objeto a añadir
  * @return OK si se ha añadido, ERROR en caso contrario
  */
-STATUS game_add_object(Game* game, Id id);
+STATUS game_add_object(Game* game, Object *object);
 
 /**
  * @brief devuelce el número de objetos que contiene game

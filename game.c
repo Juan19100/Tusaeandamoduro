@@ -161,17 +161,19 @@ Game* game_create()
   return game;
 }
 
-STATUS game_create_from_file(Game *game, char *filename)
+Game *game_create_from_file(char *filename)
 {
-
-  if (game_create(game) == ERROR)
-    return ERROR;
-
-  if (game_reader_load_links(game, filename) == ERROR || game_reader_load_enemy(game, filename) == ERROR || game_reader_load_player(game, filename) == ERROR || game_reader_load_spaces(game, filename) == ERROR || game_reader_load_objects(game, filename) == ERROR)
-    return ERROR;
+  Game *newGame = NULL;
 
 
-  return OK;
+  if ((newGame = game_create()) == ERROR)
+    return NULL;
+
+  if (game_reader_load_links(newGame, filename) == ERROR || game_reader_load_enemy(newGame, filename) == ERROR || game_reader_load_player(newGame, filename) == ERROR || game_reader_load_spaces(newGame, filename) == ERROR || game_reader_load_objects(newGame, filename) == ERROR)
+    return NULL;
+
+
+  return newGame;
 }
 
 STATUS game_destroy(Game *game)
@@ -179,18 +181,18 @@ STATUS game_destroy(Game *game)
   int i = 0;
 
   for (i = 0; i < MAX_SPACES && game->spaces[i] != NULL; i++)
-  {
     space_destroy(game->spaces[i]);
-  }
+  
 
   player_destroy(game->player);
   enemy_destroy(game->enemy);
 
-  for(i=0; i < MAX_OBJECTS &&  game->object[i] != NULL; i++)
+  for(i=0; i < MAX_OBJECTS && game->object[i] != NULL; i++)
     object_destroy(game->object[i]);
   
   for(i=0; i < MAX_LINK && game->link[i] != NULL; i++)
     link_destroy(game->link[i]);
+
 
   free(game);
   game = NULL;
@@ -646,7 +648,7 @@ void game_command_attack(Game *game)
   return;
 }  */
 
-STATUS game_add_object(Game* game, Id id){
+STATUS game_add_object(Game* game, Object *object){
   int i = 0;
   if(!game) return ERROR;
 
@@ -655,7 +657,7 @@ STATUS game_add_object(Game* game, Id id){
 
   if(i >= MAX_OBJECTS) return ERROR;
 
-  game->object[i] = object_create(id);
+  game->object[i] = object;
 
   return OK;
 }

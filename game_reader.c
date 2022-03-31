@@ -144,7 +144,7 @@ STATUS game_reader_add_object(Game *game, Object *object)
     return ERROR;
   }
 
-  return game_add_object(game, object_get_id(object)); 
+  return game_add_object(game, object); 
 }
 
 STATUS game_reader_add_link(Game *game, Link *l){
@@ -159,7 +159,6 @@ STATUS game_reader_load_links(Game *game, char* filename){
   char name[WORD_SIZE] = "";
   char *toks = NULL;
   long direccion, estado;
-  /* DIRECTION dir = U; */
   Id orig_id = NO_ID, dest_id = NO_ID, link_id = NO_ID;
   STATUS st = OK, st_aux = OK;
   Link *l = NULL;

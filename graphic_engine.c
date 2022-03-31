@@ -125,18 +125,7 @@ void graphic_engine_paint_game_act(Game *game, Area *map, char *str, Id id_act, 
 
   if(enemy_id == id_act)
     enemy = '@';
-      
-  /* sprintf(str, "                      +-----------+");
-  screen_area_puts(map, str);
-  /*\\(\")/ CODIFICACION HORMIGA
-  sprintf(str, "                      |%c gpp0^ %3d|", enemy, (int)id_act);
-  screen_area_puts(map, str);
-  for(i=0; i < MAX_HEIGHT ;i++){
-    sprintf(str, "                      | %s |", space_get_gdesc(game_get_space_by_position(game,k), i));
-    screen_area_puts(map, str);
-  }
-      
-  width_aux = strlen(str); */
+
       
   if(id_right != NO_ID && id_left == NO_ID){
     sprintf(str, "                      +-----------+  +---------");
@@ -179,7 +168,7 @@ void graphic_engine_paint_game_act(Game *game, Area *map, char *str, Id id_act, 
     sprintf(str, "          ---------+  +-----------+");
     screen_area_puts(map, str);
     /*\\(\")/ CODIFICACION HORMIGA */
-    sprintf(str, "                %3d|  |%c gpp0^ %3d|", id_left, enemy, (int)id_act);
+    sprintf(str, "                %3d|  |%c gpp0^ %3d|", (int)id_left, enemy, (int)id_act);
     screen_area_puts(map, str);
     for(i=0; i < MAX_HEIGHT ;i++){
       sprintf(str, "         %s |  | %s |", space_get_gdesc(game_get_space_by_position(game,left), i),
