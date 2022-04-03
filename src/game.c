@@ -169,7 +169,11 @@ Game *game_create_from_file(char *filename)
   if ((newGame = game_create()) == ERROR)
     return NULL;
 
-  if (game_reader_load_links(newGame, filename) == ERROR || game_reader_load_enemy(newGame, filename) == ERROR || game_reader_load_player(newGame, filename) == ERROR || game_reader_load_spaces(newGame, filename) == ERROR || game_reader_load_objects(newGame, filename) == ERROR)
+  if (game_reader_load_links(newGame, filename) == ERROR || 
+      game_reader_load_enemy(newGame, filename) == ERROR || 
+      game_reader_load_player(newGame, filename) == ERROR || 
+      game_reader_load_spaces(newGame, filename) == ERROR || 
+      game_reader_load_objects(newGame, filename) == ERROR)
     return NULL;
 
 
@@ -330,9 +334,9 @@ STATUS game_update(Game *game, T_Command cmd)
       game_command_attack(game);
       break;
 
-/*     case INSPECT:
+     case INSPECT:
       game_command_inspect(game);
-      break; */
+      break;
 
     default:
       break;
@@ -451,6 +455,7 @@ void game_command_back(Game *game)
 void game_command_take(Game *game)
 {
   Id object_location;
+  char object_name[WORD_SIZE];
   long object_id;
 
   if(!game){
@@ -458,11 +463,13 @@ void game_command_take(Game *game)
     return;
   } 
 
-  scanf(" O%ld", &object_id);
-  if (object_id == NO_ID){
+  scanf(" %s", object_name);
+  if (object_id == NULL){
     game->status_last_cmd = ERROR;
     return;
-  } 
+  }
+
+  object_id = game_get_object_by_name(game, object_name); 
   
   object_location = game_get_object_location(game, object_id);
   if(object_location == NO_ID){
@@ -485,13 +492,18 @@ void game_command_take(Game *game)
 void game_command_drop(Game *game)
 {
   Id object_id, space_id;
+  char obj_name[WORD_SIZE];
 
   if(!game){
     game->status_last_cmd = ERROR;
     return;
   } 
 
-  scanf(" O%ld", &object_id);
+  scanf(" %s", obj_name);
+
+  object_id = game_get_object_by_name(game, obj_name);
+  if(object_id == NO_ID)
+    return;
   
   if(player_has_object(game->player, object_id) == FALSE){
     game->status_last_cmd = ERROR;
@@ -627,18 +639,24 @@ void game_command_attack(Game *game)
   game->status_last_cmd = OK;
 }
 
-/* void game_command_inspect(Game *game){
-
+void game_command_inspect(Game *game){
+  Id obj_id;
   char opcion, name[WORD_SIZE];
 
   scanf(" %c", &opcion);
-    
-  if(opcion == "o"){
+  
+  
+  if(opcion == 'o'){
     scanf(" %s", name);
-    strcpy (game->last_description, game_get_descr_by_name(game, name));
-    game->status_last_cmd = OK;
+    obj_id = game_get_object_by_name(game, name);
+    if(player_get_location(game->player) == game_get_object_location(game, obj_id) || inventory_has_object(player_get_inventory(game->player), obj_id)){
+      strcpy (game->last_description, game_get_descr_by_name(game, name));
+      game->status_last_cmd = OK;
+    }
+    else  
+      game->status_last_cmd = ERROR;
   }
-  else if(opcion == "s"){
+  else if(opcion == 's'){
     strcpy (game->last_description, game_get_descr_of_space(game, game_get_space(game, player_get_location(game->player))));
     game->status_last_cmd = OK;
   }
@@ -646,7 +664,7 @@ void game_command_attack(Game *game)
     game->status_last_cmd = ERROR;
   }
   return;
-}  */
+} 
 
 STATUS game_add_object(Game* game, Object *object){
   int i = 0;
@@ -819,4 +837,18 @@ Id game_get_connection(Game *game, Id space_id, DIRECTION dir){
     i++;
   }
   return NO_ID;
+}
+
+char *game_get_object_name(Game *game, Id object_id){
+  int i = 0;
+
+  if(!game || object_id == NO_ID) return NULL;
+
+  while (i < MAX_OBJECTS && game->object[i] != NULL){
+    if(game_get_object(game, i) == object_id)
+      return object_get_name(game->object[i]);
+    i++;
+  }  
+
+  return NULL;
 }

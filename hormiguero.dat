@@ -1,19 +1,19 @@
-#s:11|Entrada|     /   |mo  /   /|  _/   / | /    /  |/    /_  | Estas en la entrada
-#s:121|Pasillo 1|\    \   | \    \  |  \    \ |  /    / |_/    /  | Este pasillo perece tranquilo
-#s:122|Pasillo 2|_     \  | \_    \ |  _\    \| /       |/        | parece el mismo pasillo que antes
-#s:125|Pasillo 5|       Oo|OOo   oOO|oOO      |oOoOooo  |oOoOooooo| que rocoso!
-#s:126|Pasillo 6|         |         |         |         |         | que vacio esta esto
-#s:127|Pasillo 7|         |         |         |         |         | que vacio esta esto
-#s:14|Agujero|         |         |         |         |         | cuidado no te vayas a caer
-#s:123|Pasillo 3|oO     Oo|OOo   oOO|oOO  ooOo|o   ooooo|o  Oooooo| que rocoso!
-#s:124|Pasillo 4|         |         |         |         |         | que vacio esta esto
-#s:13|Despensa| \     / |  \   /  | -(   ) -|(   $D  )|  \ _ /  | cuidado! hay una aranha
-#o:21|Grano|11| este grano mide 0,1 mm
-#o:22|Piedra|121| esta piedra pesa mucho
-#o:23|Espada|13| esta espada esta muy afilada
-#o:24|Escudo|122| este escudo parece muy resistente
-#p:1|Manu|11|10|13
-#e:2|Kostadin|123|4
+#s:11|Entrada|     /   |mo  /   /|  _/   / | /    /  |/    /_  | Estas en la entrada|
+#s:121|Pasillo 1|\    \   | \    \  |  \    \ |  /    / |_/    /  | Este pasillo perece tranquilo|
+#s:122|Pasillo 2|_     \  | \_    \ |  _\    \| /       |/        | parece el mismo pasillo que antes|
+#s:125|Pasillo 5|       Oo|OOo   oOO|oOO      |oOoOooo  |oOoOooooo| que rocoso!|
+#s:126|Pasillo 6|         |         |         |         |         | que vacio esta esto|
+#s:127|Pasillo 7|         |         |         |         |         | que vacio esta esto|
+#s:14|Agujero|         |         |         |         |         | cuidado no te vayas a caer|
+#s:123|Pasillo 3|oO     Oo|OOo   oOO|oOO  ooOo|o   ooooo|o  Oooooo| No se puede seguir avanzando!|
+#s:124|Pasillo 4|         |         |         |         |         | que vacio esta esto|
+#s:13|Despensa| \     / |  \   /  | -(   ) -|(   $D  )|  \ _ /  | cuidado! hay una aranha|
+#o:21|Grano|11| este grano mide 0,1 mm|
+#o:22|Piedra|121| esta piedra pesa mucho|
+#o:23|Espada|13| esta espada esta muy afilada|
+#o:24|Escudo|122| este escudo parece muy resistente|
+#p:1|Manu|11|10|13|
+#e:2|Kostadin|123|4|
 #l:31|Entrada|11|121|1|0|
 #l:32|Pasillo 1|121|11|0|0|
 #l:33|Pasillo 1|121|122|1|0|

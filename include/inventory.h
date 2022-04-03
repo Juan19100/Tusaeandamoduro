@@ -80,5 +80,23 @@ int inventory_get_max_objects(Inventory *inv);
  */
 STATUS inventory_print(Inventory *inv);
 
+/**
+ * @brief settea la capacidad maxima del inventario
+ * @author Alberto
+ * 
+ * @param inv puntero a inventory
+ * @param obj_max capacidad maxima del inventario
+ * @return OK si ha ido todo bien, ERROR en caso contrario
+ */
 STATUS inventory_set_max_objects(Inventory *inv, int obj_max);
+
+/**
+ * @brief comprueba si un inventory tiene un objeto
+ * @author Alex
+ * 
+ * @param inv puntero al inventario 
+ * @param obj_id id del objeto a buscar
+ * @return TRUE si lo contiene, FALSE en caso contrario
+ */
+BOOL inventory_has_object(Inventory *inv, Id obj_id);
 #endif

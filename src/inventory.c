@@ -76,3 +76,15 @@ STATUS inventory_set_max_objects(Inventory *inv, int obj_max){
     inv->max_objs = obj_max;
     return OK;
 }
+
+BOOL inventory_has_object(Inventory *inv, Id obj_id){
+    int i = 0;
+    if(!inv || obj_id == NO_ID) return ERROR;
+
+    while(i < set_get_num_ids(inv->objects)){
+        if(obj_id == set_get_object(inv->objects, i)) return TRUE;
+        i++;
+    }
+        
+    return FALSE;
+}

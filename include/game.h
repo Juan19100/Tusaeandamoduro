@@ -260,11 +260,42 @@ STATUS game_add_enemy(Game* game, Enemy *enemy);
  */
 STATUS game_add_link(Game *game, Link *l);
 
+/**
+ * @brief añade un link al juego
+ * @author
+ * 
+ * @param game puntero a game 
+ * @param l puntero a link
+ * @return OK si todo ha ido bien, ERROR en caso contrario
+ */
+
+/**
+ * @brief 
+ * 
+ * @param game 
+ */
 void game_command_inspect(Game *game);
 
+/**
+ * @brief devuelve la descripcion de un objeto a partir del nombre
+ * 
+ * @param game puntero a game
+ * @param name puntero al al nombre del objeto
+ * @return char* puntero a la descripción del objeto
+ */
 char *game_get_descr_by_name(Game *game, char *name);
 
+/**
+ * @brief comprueba el link entre espacios
+ * 
+ * @param game puntero a game
+ * @param space_id id del espacio
+ * @param dir direccion hacia la que queremos comprobar el link
+ * @return OK si todo ha ido bien, ERROR en caso contrario
+ */
 STATUS game_get_connection_status(Game *game, Id space_id, DIRECTION dir);
 Id game_get_connection(Game *game, Id space_id, DIRECTION dir);
 char *game_get_last_description(Game *game);
+char *game_get_object_name(Game *game, Id object_id);
+
 #endif

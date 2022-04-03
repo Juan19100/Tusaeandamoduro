@@ -160,4 +160,5 @@ BOOL space_has_object(Space *space, Id id);
 STATUS space_del_object(Space* space, Id value);
 
 
+
 #endif

@@ -188,3 +188,4 @@ BOOL space_has_object(Space *space, Id id){
 
   return FALSE;
 }
+

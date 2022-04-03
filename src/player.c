@@ -152,3 +152,7 @@ STATUS player_set_max_objects(Player *player, int obj_max){
     if(!inventory_set_max_objects(player->inv, obj_max)) return ERROR;
     return OK;
 }
+
+Inventory * player_get_inventory(Player *player){
+    return player->inv;
+}

@@ -18,7 +18,7 @@
 #include "types.h"
 
 #define ROWS 35 /*+5+7*/
-#define COLUMNS 90 /*+9+1*/
+#define COLUMNS 100 /*+9+1, antes eran 90*/
 
 
 struct _Graphic_engine
@@ -55,7 +55,7 @@ Graphic_engine *graphic_engine_create()
     return NULL;
 
   ge->map = screen_area_init(1, 1, 57, 25); /*sumo 9 y 5, era antes 1,1,48,13*/
-  ge->descript = screen_area_init(59, 1, 29, 13);/*creo que hay que cambiar los dos primeros solo. 50, 1, 29, 13 || 59, 1, 29, 13*/
+  ge->descript = screen_area_init(59, 1, 39, 13);/*creo que hay que cambiar los dos primeros solo. 50, 1, 29, 13 || 59, 1, 29, 13*/
   ge->banner = screen_area_init(28, 27, 23, 1);/*creo que solo hay que cambiar el de altura (15). 28, 15, 23, 1 || 28, 10, 23, 1*/
   ge->help = screen_area_init(1, 28, 87, 2);/*añado uno mas en y (17), y al widht añado 9 (87). 1, 16, 78, 2 || 1, 21, 87, 2*/
   ge->feedback = screen_area_init(1, 31, 87, 3);/*1, 19, 78, 3 || 1, 24, 87, 3*/
@@ -81,7 +81,8 @@ void graphic_engine_destroy(Graphic_engine *ge)
 void graphic_engine_paint_game_back(Game *game, Area *map, char *str, Id id_back, int k){
   int i = 0, width_aux = 0;
   Id obj_id;
-  char str_aux[255];
+  char obj_name[255];
+  char str_aux[WORD_SIZE];
 
    if (id_back != NO_ID)
     {
@@ -97,7 +98,7 @@ void graphic_engine_paint_game_back(Game *game, Area *map, char *str, Id id_back
       sprintf(str,"                      |");
       for(i=0; i < MAX_SET ; i++){
         if((obj_id = space_get_object(game_get_space(game, id_back), i)) != NO_ID){
-          sprintf(str_aux, " %ld", obj_id);
+          sprintf(str_aux, " %s", game_get_object_name(game, obj_id));
           strcat(str, str_aux);
         }
       }
@@ -120,7 +121,7 @@ void graphic_engine_paint_game_back(Game *game, Area *map, char *str, Id id_back
 void graphic_engine_paint_game_act(Game *game, Area *map, char *str, Id id_act, Id enemy_id, Id id_right, Id id_left, int k, int right, int left){
   int i = 0, width_aux = 0;
   Id obj_id;
-  char str_aux[255], enemy = ' ';
+  char str_aux[WORD_SIZE], enemy = ' ', obj_name[255];
 
 
   if(enemy_id == id_act)
@@ -143,9 +144,9 @@ void graphic_engine_paint_game_act(Game *game, Area *map, char *str, Id id_act, 
     sprintf(str,"                      |");
     for(i=0; i < MAX_SET ; i++){
       if((obj_id = space_get_object(game_get_space(game, id_act), i)) != NO_ID){
-        sprintf(str_aux, " %ld", obj_id);
-        strcat(str, str_aux);
-      }
+          sprintf(str_aux, " %s", game_get_object_name(game, obj_id));
+          strcat(str, str_aux);
+        }
     }
     width_aux = strlen(str);
     
@@ -180,9 +181,9 @@ void graphic_engine_paint_game_act(Game *game, Area *map, char *str, Id id_act, 
     sprintf(str,"                   |<<|");
     for(i=0; i < MAX_SET ; i++){
       if((obj_id = space_get_object(game_get_space(game, id_act), i)) != NO_ID){
-        sprintf(str_aux, " %ld", obj_id);
-        strcat(str, str_aux);
-      }
+          sprintf(str_aux, " %s", game_get_object_name(game, obj_id));
+          strcat(str, str_aux);
+        }
     }
     
     i=strlen(str);
@@ -217,9 +218,9 @@ void graphic_engine_paint_game_act(Game *game, Area *map, char *str, Id id_act, 
     sprintf(str,"                  |<<|");
     for(i=0; i < MAX_SET ; i++){
       if((obj_id = space_get_object(game_get_space(game, id_act), i)) != NO_ID){
-        sprintf(str_aux, " %ld", obj_id);
-        strcat(str, str_aux);
-      }
+          sprintf(str_aux, " %s", game_get_object_name(game, obj_id));
+          strcat(str, str_aux);
+        }
     }
     width_aux = strlen(str);
     
@@ -253,9 +254,9 @@ void graphic_engine_paint_game_act(Game *game, Area *map, char *str, Id id_act, 
     sprintf(str,"                      |");
     for(i=0; i < MAX_SET ; i++){
       if((obj_id = space_get_object(game_get_space(game, id_act), i)) != NO_ID){
-        sprintf(str_aux, " %ld", obj_id);
-        strcat(str, str_aux);
-      }
+          sprintf(str_aux, " %s", game_get_object_name(game, obj_id));
+          strcat(str, str_aux);
+        }
     }
         
     i=strlen(str);
@@ -301,9 +302,9 @@ void graphic_engine_paint_game_next(Game *game, Area *map, char *str, Id enemy_i
   sprintf(str,"                      |");
   for(i=0; i < MAX_SET ; i++){
     if((obj_id = space_get_object(game_get_space(game, id_next), i)) != NO_ID){
-      sprintf(str_aux, " %ld", obj_id);
-      strcat(str, str_aux);
-    }
+          sprintf(str_aux, " %s", game_get_object_name(game, obj_id));
+          strcat(str, str_aux);
+        }
   }
   
   i=strlen(str);
@@ -379,19 +380,21 @@ void graphic_engine_paint_game(Graphic_engine *ge, Game *game)
 
   sprintf(str, "  Objects location : ");
   screen_area_puts(ge->descript, str);
+  strcpy(str, "");
   if(game_get_num_object(game) != 0){
     for(i=0; i < MAX_OBJECTS && game_get_object_by_position(game, i) != NULL; i++){
       for(j=0; j < MAX_SPACES && game_get_space_by_position(game,j) != NULL; j++){
         if(space_has_object(game_get_space_by_position(game,j), game_get_object(game,i))){
           for(k=0; k < MAX_SET; k++){
             if(space_get_object(game_get_space_by_position(game,j),k) == game_get_object(game,i)){
-              sprintf(str, "  %ld:%ld, ", space_get_object(game_get_space_by_position(game,j), k), game_get_space_id_at(game,j));
-              screen_area_puts(ge->descript, str);
+              sprintf(str_aux, " %s:%ld, ", game_get_object_name(game,game_get_object(game,i)), space_get_object(game_get_space_by_position(game,j), k));
+              strcat(str, str_aux);
             }
           }
         }
       }
     }
+    screen_area_puts(ge->descript, str);
   }
 
   else{
@@ -415,7 +418,7 @@ void graphic_engine_paint_game(Graphic_engine *ge, Game *game)
     sprintf(str, "  Player objects:");
     for(i=0; i < player_get_num_objects(game_get_player(game)) ; i++){
         if((obj_id = player_get_object_by_position(game_get_player(game), i)) != NO_ID){
-          sprintf(str_aux, " %ld", obj_id);
+          sprintf(str_aux, " %s", game_get_object_name(game, obj_id));
           strcat(str, str_aux);
         }
     }
@@ -435,7 +438,7 @@ void graphic_engine_paint_game(Graphic_engine *ge, Game *game)
 
   last_description = game_get_last_description(game);
 
-  sprintf(str, "  description: %s", last_description);
+  sprintf(str, "  Description: %s", last_description);
   screen_area_puts(ge->descript, str);
 
   /* Paint in the banner area */

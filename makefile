@@ -2,7 +2,7 @@
 CC=gcc
 CFLAGS=-Wall -g -pedantic
 CLIBS=-lscreen -L.
-
+COMPILE_G_READER =  
 .PHONY=clean
 
 all: hormiguero

@@ -2,7 +2,7 @@
 #define PROYECT_H
 
 #include "types.h"
-
+#include "inventory.h"
 
 typedef struct _Player Player;
 
@@ -167,5 +167,5 @@ BOOL player_has_object(Player *player, Id object_id);
 */
 STATUS player_set_max_objects(Player *player, int obj_max);
 
-
+Inventory *player_get_inventory(Player *player);
 #endif
